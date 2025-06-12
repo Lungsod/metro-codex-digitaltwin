@@ -1,4 +1,4 @@
-import globeGif from "./lib/Styles/globe.gif";
+const logoGif = require("./lib/Styles/loading.gif");
 import "./lib/Styles/loader.css";
 
 async function loadMainScript() {
@@ -11,10 +11,10 @@ function createLoader() {
   const loaderDiv = document.createElement("div");
   loaderDiv.classList.add("loader-ui");
   const loaderGif = document.createElement("img");
-  loaderGif.src = globeGif;
+  loaderGif.src = logoGif;
   loaderDiv.appendChild(loaderGif);
 
-  loaderDiv.style.backgroundColor = "#383F4D";
+  loaderDiv.style.backgroundColor = "#413F90"; // change splash/loading screen background here
   document.body.appendChild(loaderDiv);
 
   loadMainScript()

@@ -11,7 +11,7 @@
     "east": 122.74382,
     "north": 10.944399834
   },
-  "viewerMode": "3dSmooth",
+  "viewerMode": "3d",
   "baseMaps": {
     "defaultBaseMapId": "basemap-openstreetmap",
     "previewBaseMapId": "basemap-openstreetmap"

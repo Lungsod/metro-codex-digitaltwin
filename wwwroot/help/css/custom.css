@@ -95,7 +95,7 @@ ul {
 }
 
 .navbar-inverse {
-  background-color: #353B43;
+  background-color: #4c4a89;
   border-color: #080808; 
 }
 
@@ -106,14 +106,14 @@ ul {
 }
 
 .navbar-inverse .navbar-nav > li > a:hover {
-  background-color: #3c434c;
+  background-color: #D3D6FD;
 }
 
 .navbar-inverse .navbar-nav > .active > a {
-  background-color: #49515c;
+  background-color: #4c4a89;
 }
 .navbar-inverse .navbar-nav > .active > a:hover {
-  background-color: #49515c;
+  background-color: #D3D6FD;
 }
 
 .navbar-brand {

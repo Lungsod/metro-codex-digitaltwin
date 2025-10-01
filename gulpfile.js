@@ -1,6 +1,8 @@
 /*eslint-env node*/
 /*eslint no-sync: 0*/
 /*eslint no-process-exit: 0*/
+/*eslint no-redeclare: 0*/
+/*eslint @typescript-eslint/no-require-imports: 0*/
 
 "use strict";
 
@@ -229,6 +231,7 @@ gulp.task("sync-terriajs-dependencies", function (done) {
 
 function syncDependencies(dependencies, targetJson, justWarn) {
   for (var dependency in dependencies) {
+    // eslint-disable-next-line no-prototype-builtins
     if (dependencies.hasOwnProperty(dependency)) {
       var version =
         targetJson.dependencies[dependency] ||

@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 const configureWebpackForTerriaJS = require("terriajs/buildprocess/configureWebpack");
 const configureWebpackForPlugins = require("./configureWebpackForPlugins");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -80,12 +83,6 @@ module.exports = function (devMode) {
             }
           }
         },
-        // handle css files - inject in html tag
-        {
-          test: /loader\.css$/,
-          include: [path.resolve(__dirname, "..", "lib", "Styles")],
-          use: ["style-loader", "css-loader"]
-        },
         // handle scss files
         {
           test: /\.scss$/,
@@ -100,6 +97,7 @@ module.exports = function (devMode) {
                 defaultExport: true
               }
             },
+            { loader: "terriajs-typings-for-css-modules-loader" },
             {
               loader: "css-loader",
               options: {

@@ -1,5 +1,12 @@
 # Change Log
 
+#### 0.4.2
+
+**2025-06-03**
+
+- Update TerriaJS to [8.9.5](https://github.com/TerriaJS/terriajs/blob/main/CHANGES.md#895---2025-06-03)
+- Update terriajs-server to [4.0.2](https://github.com/TerriaJS/terriajs-server/blob/master/CHANGES.md#402---2025-06-03)
+
 #### 0.4.1
 
 **2025-04-24**

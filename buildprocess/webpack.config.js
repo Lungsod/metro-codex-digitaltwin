@@ -72,9 +72,9 @@ module.exports = function (devMode) {
           include: path.resolve(__dirname, "..", "wwwroot", "images"),
           type: "asset" // inlines as data url if size < 8kb
         },
-        // import globe.gif
+        // import loading.gif
         {
-          test: /globe\.gif$/,
+          test: /loading\.gif$/,
           include: path.resolve(__dirname, "..", "lib", "Styles"),
           type: "asset",
           parser: {

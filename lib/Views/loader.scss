@@ -1,6 +1,8 @@
 .loader-ui img {
   display: block;
-  margin: calc(50vh - 150px) auto;
+  margin: auto auto; /* original: calc(50vh - 150px) */
+  max-width: 50%;
+  height: 345px;
 }
 
 @media (min-width: 768px) {
@@ -11,6 +13,22 @@
     top: 0;
     width: 100vw;
     height: 100vh;
+  }
+
+  .loader-ui-grabber {
+    left: 350px;
+    top: 70px;
+    height: 15px;
+    width: 31px;
+    position: absolute;
+    margin-left: -15px;
+    transform: perspective(10px) rotateY(10deg);
+    padding: 8px 0px;
+    border-width: 0px 1px 0px 0px;
+    border-right: 1px solid #3f4854;
+    border-radius: 0px 2px 2px 0px;
+    background: #3f4854;
+    z-index: -2;
   }
 }
 

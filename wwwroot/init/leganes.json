@@ -1,0 +1,95 @@
+{
+  "initialCamera": {
+    "west": 122.558868408,
+    "south": 10.759429932,
+    "east": 122.645393372,
+    "north": 10.817729951
+  },
+  "homeCamera": {
+    "west": 122.558868408,
+    "south": 10.759429932,
+    "east": 122.645393372,
+    "north": 10.817729951
+  },
+  "workbench": ["3d-buildings"],
+  "catalog": [
+    {
+      "name": "Administrative Boundaries",
+      "type": "group",
+      "members": [
+        {
+          "name": "Administrative Boundaries",
+          "type": "geojson",
+          "url": "/metro_data/leganes/leganes_brgy.geojson"
+        }
+      ]
+    },
+    {
+      "name": "Land Use/Land Cover",
+      "type": "group",
+      "members": [
+        {
+          "name": "Land Cover",
+          "type": "geojson",
+          "url": "/metro_data/leganes/leganes_lc.geojson"
+        }
+      ]
+    },
+    {
+      "name": "Transportation",
+      "type": "group",
+      "members": [
+        {
+          "name": "Road Network",
+          "type": "geojson",
+          "url": "/metro_data/leganes/leganes_roads.geojson"
+        }
+      ]
+    }
+  ],
+  "viewerMode": "3d",
+  "baseMaps": {
+    "enabledBaseMaps": ["esri-world-imagery", "osm", "Carto", "world-topo-map"],
+    "items": [
+      {
+        "item": {
+          "id": "Carto",
+          "name": "Carto with labels",
+          "type": "open-street-map",
+          "url": "https://basemaps.cartocdn.com/rastertiles/voyager_labels_under/",
+          "attribution": "© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>, © <a href='https://carto.com/about-carto/'>CARTO</a>"
+        },
+        "image": "images/basemaps/carto.png"
+      },
+      {
+        "item": {
+          "id": "osm",
+          "name": "OSM",
+          "type": "open-street-map",
+          "url": "https://tile.openstreetmap.org"
+        },
+        "image": "images/basemaps/osm.png"
+      },
+      {
+        "item": {
+          "id": "esri-world-imagery",
+          "name": "World Imagery",
+          "type": "esri-mapServer",
+          "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        },
+        "image": "images/basemaps/topo.png"
+      },
+      {
+        "item": {
+          "id": "world-topo-map",
+          "name": "World Topographic Map",
+          "type": "esri-mapServer",
+          "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"
+        },
+        "image": "images/basemaps/world-topo-map2.png"
+      }
+    ],
+    "defaultBaseMapId": "esri-world-imagery",
+    "previewBaseMapId": "osm"
+  }
+}

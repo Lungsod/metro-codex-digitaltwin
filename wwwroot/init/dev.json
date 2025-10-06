@@ -1,0 +1,72 @@
+{
+  "homeCamera": {
+    "north": 10.8744100231323202,
+    "east": 122.848264008173004,
+    "south": 10.3949576054632828,
+    "west": 122.3920216641443943
+  },
+  "workbench": ["3d-buildings"],
+  "catalog": [
+    {
+      "name": "3D Models",
+      "type": "group",
+      "members": [
+        {
+          "name": "3D Buildings",
+          "type": "3d-tiles",
+          "attribution": "OpenStreetMap",
+          "description": "OpenStreetMap 3D Building footprints",
+          "ionAssetId": 96188,
+          "ionAccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4MThkYzE1NC03ZmI3LTQwYmItYjI2YS00MzhlMDkzZjFhOTYiLCJpZCI6NjQzMTcsImlhdCI6MTYyOTEwMDgzMH0.Cb4eZ8RftYTwllMhTJrWg1VX6-FGKjJzLBhlIMRKyew",
+          "ionServer": "https://api.cesium.com",
+          "id": "3d-buildings"
+        }
+      ]
+    }
+  ],
+  "viewerMode": "3d",
+  "baseMaps": {
+    "enabledBaseMaps": ["esri-world-imagery", "osm", "Carto", "world-topo-map"],
+    "items": [
+      {
+        "item": {
+          "id": "Carto",
+          "name": "Carto with labels",
+          "type": "open-street-map",
+          "url": "https://basemaps.cartocdn.com/rastertiles/voyager_labels_under/",
+          "attribution": "© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>, © <a href='https://carto.com/about-carto/'>CARTO</a>"
+        },
+        "image": "images/basemaps/carto.png"
+      },
+      {
+        "item": {
+          "id": "osm",
+          "name": "OSM",
+          "type": "open-street-map",
+          "url": "https://tile.openstreetmap.org"
+        },
+        "image": "images/basemaps/osm.png"
+      },
+      {
+        "item": {
+          "id": "esri-world-imagery",
+          "name": "World Imagery",
+          "type": "esri-mapServer",
+          "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        },
+        "image": "images/basemaps/topo.png"
+      },
+      {
+        "item": {
+          "id": "world-topo-map",
+          "name": "World Topographic Map",
+          "type": "esri-mapServer",
+          "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"
+        },
+        "image": "images/basemaps/world-topo-map2.png"
+      }
+    ],
+    "defaultBaseMapId": "basemap-openstreetmap",
+    "previewBaseMapId": "basemap-openstreetmap"
+  }
+}

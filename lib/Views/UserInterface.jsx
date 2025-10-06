@@ -104,7 +104,7 @@ TerriaUserInterfaceInner.propTypes = {
 
 export const TerriaUserInterface = ({ terria, viewState, themeOverrides }) => {
   return (
-    <AuthProvider apiBaseUrl="/manager">
+    <AuthProvider apiBaseUrl="">
       <TerriaUserInterfaceInner
         terria={terria}
         viewState={viewState}

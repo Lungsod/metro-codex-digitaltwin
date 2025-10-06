@@ -13,7 +13,7 @@ import showGlobalDisclaimer from "./lib/Views/showGlobalDisclaimer";
 import plugins from "./plugins";
 
 const terriaOptions = {
-  baseUrl: "build/TerriaJS"
+  baseUrl: "/twin/build/TerriaJS"
 };
 
 // we check exact match for development to reduce chances that production flag isn't set on builds(?)

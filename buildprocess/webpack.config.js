@@ -17,7 +17,7 @@ module.exports = function (devMode) {
     output: {
       path: path.resolve(__dirname, "..", "wwwroot", "build"),
       filename: "TerriaMap.js",
-      publicPath: "build/",
+      publicPath: "/twin/build/",
       sourcePrefix: "", // to avoid breaking multi-line string literals by inserting extra tabs.
       globalObject: "(self || window)" // to avoid breaking in web worker (https://github.com/webpack/webpack/issues/6642)
     },

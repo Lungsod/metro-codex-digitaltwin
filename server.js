@@ -4,6 +4,7 @@
 
 const express = require("express");
 const path = require("path");
+const fs = require("fs");
 
 // Import terriajs-server makeserver
 const makeserver = require("terriajs-server/lib/makeserver");
@@ -25,6 +26,59 @@ const terriaApp = makeserver(options);
 
 // Create a wrapper Express app
 const app = express();
+
+// Trust proxy - important for reverse proxy setups
+app.set("trust proxy", true);
+
+// Add logging middleware to debug requests
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url} - Original URL: ${req.originalUrl}`);
+  next();
+});
+
+// Serve language override files from wwwroot/languages
+app.use(
+  "/twin/languages",
+  express.static(path.join(options.wwwroot, "languages"), {
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith(".json")) {
+        res.setHeader("Content-Type", "application/json; charset=utf-8");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+      }
+    }
+  })
+);
+
+// Serve TerriaJS language files from node_modules
+app.use(
+  "/twin/build/TerriaJS/languages",
+  express.static(
+    path.join(__dirname, "node_modules", "terriajs", "wwwroot", "languages"),
+    {
+      setHeaders: (res, filePath) => {
+        if (filePath.endsWith(".json")) {
+          res.setHeader("Content-Type", "application/json; charset=utf-8");
+          res.setHeader("Access-Control-Allow-Origin", "*");
+        }
+      }
+    }
+  )
+);
+
+// Serve TerriaJS build files (Cesium assets, etc.)
+app.use(
+  "/twin/build/TerriaJS/build",
+  express.static(
+    path.join(__dirname, "node_modules", "terriajs", "wwwroot", "build"),
+    {
+      setHeaders: (res, filePath) => {
+        if (filePath.endsWith(".json")) {
+          res.setHeader("Content-Type", "application/json; charset=utf-8");
+        }
+      }
+    }
+  )
+);
 
 // Mount the terria app at /twin
 app.use("/twin", terriaApp);

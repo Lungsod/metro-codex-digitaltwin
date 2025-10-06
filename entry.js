@@ -14,7 +14,6 @@ function createLoader() {
   loaderGif.src = logoGif;
   loaderDiv.appendChild(loaderGif);
 
-  loaderDiv.style.backgroundColor = "#413F90"; // change splash/loading screen background here
   document.body.appendChild(loaderDiv);
 
   loadMainScript()

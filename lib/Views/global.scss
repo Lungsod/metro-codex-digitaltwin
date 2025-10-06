@@ -43,6 +43,15 @@ body {
     max-height: 100% !important;
   }
 
+  body .tjs-mobile-modal-window__mobileModal {
+    top: 107px;
+  }
+
+  body .tjs-mobile-header__ui {
+    position: absolute;
+    top: 0;
+  }
+
   @media print {
     .nationalmap-print-disclaimer {
       color: #000;

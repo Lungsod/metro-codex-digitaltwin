@@ -1476,7 +1476,7 @@
 
 "@smartmetro/codex-auth@github:Lungsod/codex-auth":
   version "0.0.1"
-  resolved "git+ssh://git@github.com/Lungsod/codex-auth.git#77a3d3e64de8fd58de4a01c5be86677afe0b0174"
+  resolved "git+ssh://git@github.com/Lungsod/codex-auth.git#57e3bbfe10398bf3602701af5e86b231f45c773a"
   dependencies:
     axios "^1.6.0"
     js-cookie "^3.0.5"

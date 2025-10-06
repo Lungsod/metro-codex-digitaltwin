@@ -4319,6 +4319,11 @@ domutils@^3.1.0:
     domelementtype "^2.3.0"
     domhandler "^5.0.3"
 
+dotenv@^16.3.1:
+  version "16.6.1"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.6.1.tgz"
+  integrity sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==
+
 dotignore@~0.1.2:
   version "0.1.2"
   resolved "https://registry.npmjs.org/dotignore/-/dotignore-0.1.2.tgz"

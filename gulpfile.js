@@ -70,6 +70,16 @@ gulp.task("write-version", function (done) {
   done();
 });
 
+gulp.task("update-config", function (done) {
+  const { execSync } = require("child_process");
+  try {
+    execSync("node scripts/update-config.js", { stdio: "inherit" });
+    done();
+  } catch (error) {
+    done(error);
+  }
+});
+
 gulp.task("render-index", function renderIndex(done) {
   var ejs = require("ejs");
   var minimist = require("minimist");
@@ -91,6 +101,7 @@ gulp.task(
   gulp.parallel(
     "render-index",
     gulp.series(
+      "update-config",
       "check-terriajs-dependencies",
       "write-version",
       function buildApp(done) {
@@ -111,6 +122,7 @@ gulp.task(
   gulp.parallel(
     "render-index",
     gulp.series(
+      "update-config",
       "check-terriajs-dependencies",
       "write-version",
       function releaseApp(done) {
@@ -143,20 +155,24 @@ gulp.task(
   "watch-app",
   gulp.parallel(
     "watch-render-index",
-    gulp.series("check-terriajs-dependencies", function watchApp(done) {
-      var fs = require("fs");
-      var watchWebpack = require("terriajs/buildprocess/watchWebpack");
-      var webpack = require("webpack");
-      var webpackConfig = require("./buildprocess/webpack.config.js")(
-        true,
-        false
-      );
+    gulp.series(
+      "update-config",
+      "check-terriajs-dependencies",
+      function watchApp(done) {
+        var fs = require("fs");
+        var watchWebpack = require("terriajs/buildprocess/watchWebpack");
+        var webpack = require("webpack");
+        var webpackConfig = require("./buildprocess/webpack.config.js")(
+          true,
+          false
+        );
 
-      checkForDuplicateCesium();
+        checkForDuplicateCesium();
 
-      fs.writeFileSync("version.js", "module.exports = 'Development Build';");
-      watchWebpack(webpack, webpackConfig, done);
-    })
+        fs.writeFileSync("version.js", "module.exports = 'Development Build';");
+        watchWebpack(webpack, webpackConfig, done);
+      }
+    )
   )
 );
 
@@ -296,4 +312,9 @@ gulp.task(
   "dev",
   gulp.parallel(gulp.series("render-index", "terriajs-server"), "watch")
 );
+
+// Watch for .env file changes and update config
+gulp.task("watch-env", function () {
+  gulp.watch([".env"], gulp.series("update-config"));
+});
 gulp.task("default", gulp.series("lint", "build"));

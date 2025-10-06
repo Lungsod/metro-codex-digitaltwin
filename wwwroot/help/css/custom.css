@@ -186,7 +186,7 @@ h2 > a {
 /* No media query since this is the default in Bootstrap */
 
 /* Small devices (tablets, 768px and up) */
-@media (min-width: @screen-sm-min) {
+@media (min-width: 768px) {
   .affix {
     position: fixed;
   }
@@ -199,6 +199,7 @@ h2 > a {
 @media (min-width: 1200px) {
   .navbar {
     min-height: 80px;
+    background-color: #433977 !important;
   }
 
   .navbar-nav > li > a {

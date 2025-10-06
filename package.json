@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@smartmetro/codex-auth": "git+https://github.com/Lungsod/codex-auth",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "terriajs-server": "^4.0.2"
   },
@@ -94,11 +95,12 @@
     "docker-build-local": "node deploy/docker/create-docker-context.js --build --push --tag auto --local",
     "docker-build-prod": "node deploy/docker/create-docker-context.js --build --push --tag auto --repository=ghcr.io/terriajs",
     "docker-build-ci": "node deploy/docker/create-docker-context.js --build",
-    "start": "node server.js",
+    "start": "node scripts/update-config.js && node server.js",
     "gulp": "gulp",
-    "postinstall": "echo 'Installation successful. What to do next:\\n  yarn gulp dev   # Starts the server on port 3001, builds TerriaMap and dependencies, and rebuilds if files change.'",
-    "hot": "webpack-dev-server --inline --config buildprocess/webpack.config.hot.js --hot --host 0.0.0.0",
+    "postinstall": "node scripts/update-config.js && echo 'Installation successful. What to do next:\\n  yarn gulp dev   # Starts the server on port 3001, builds TerriaMap and dependencies, and rebuilds if files change.'",
+    "hot": "node scripts/update-config.js && webpack-dev-server --inline --config buildprocess/webpack.config.hot.js --hot --host 0.0.0.0",
     "prettier": "prettier --write .",
-    "prettier-check": "prettier --check ."
+    "prettier-check": "prettier --check .",
+    "update-config": "node scripts/update-config.js"
   }
 }

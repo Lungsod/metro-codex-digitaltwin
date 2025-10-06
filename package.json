@@ -24,7 +24,7 @@
     "url": "http://github.com/TerriaJS/TerriaMap"
   },
   "dependencies": {
-    "@smartmetro/codex-auth": "github:Lungsod/codex-auth",
+    "@smartmetro/codex-auth": "git+https://github.com/Lungsod/codex-auth",
     "express": "^4.18.2",
     "terriajs-server": "^4.0.2"
   },

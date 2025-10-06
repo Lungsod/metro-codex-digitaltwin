@@ -38,32 +38,49 @@ export const TerriaUserInterfaceInner = ({
     viewState.terria.configParameters.aboutButtonHrefUrl;
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+        overflow: "hidden"
+      }}
+    >
       <Navigation
         logo={logo}
         logoHref="/"
         links={navLinks}
         onLoginClick={() => setShowLogin(true)}
       />
-      <StandardUserInterface
-        terria={terria}
-        viewState={viewState}
-        themeOverrides={themeOverrides}
-        version={version}
+      <div
+        style={{
+          flex: 1,
+          overflow: "hidden",
+          position: "relative",
+          display: "flex",
+          flexDirection: "column"
+        }}
       >
-        <MenuLeft>
-          {aboutButtonHrefUrl ? (
-            <MenuItem
-              caption="About"
-              href={aboutButtonHrefUrl}
-              key="about-link"
-            />
-          ) : null}
-          {relatedMaps && relatedMaps.length > 0 ? (
-            <RelatedMaps relatedMaps={relatedMaps} />
-          ) : null}
-        </MenuLeft>
-      </StandardUserInterface>
+        <StandardUserInterface
+          terria={terria}
+          viewState={viewState}
+          themeOverrides={themeOverrides}
+          version={version}
+        >
+          <MenuLeft>
+            {aboutButtonHrefUrl ? (
+              <MenuItem
+                caption="About"
+                href={aboutButtonHrefUrl}
+                key="about-link"
+              />
+            ) : null}
+            {relatedMaps && relatedMaps.length > 0 ? (
+              <RelatedMaps relatedMaps={relatedMaps} />
+            ) : null}
+          </MenuLeft>
+        </StandardUserInterface>
+      </div>
       <LoginModal
         isOpen={showLogin}
         onClose={() => setShowLogin(false)}
@@ -75,7 +92,7 @@ export const TerriaUserInterfaceInner = ({
           setShowLogin(false);
         }}
       />
-    </>
+    </div>
   );
 };
 

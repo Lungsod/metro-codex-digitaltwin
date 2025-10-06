@@ -6,6 +6,40 @@ body {
   overflow: hidden;
 }
 
+// Override StandardUserInterface to work with flex layout
+// Need to use very specific selectors to override styled-components
+body div[class*="tjs-standard-user-interface__ui-root"] {
+  height: 100% !important;
+  max-height: 100% !important;
+  overflow: hidden !important;
+}
+
+body div[class*="tjs-standard-user-interface__story-wrapper"] {
+  height: 100% !important;
+  max-height: 100% !important;
+  overflow: hidden !important;
+}
+
+// Ensure the map container and other absolutely positioned elements
+// are constrained within the flex container
+// Use more specific selectors to override the built CSS
+body section[class*="tjs-standard-user-interface__map-wrapper"],
+body section[class*="tjs-standard-user-interface__map"] {
+  height: 100% !important;
+  max-height: 100% !important;
+}
+
+// Keep the map positioned relatively but constrained
+body .tjs-standard-user-interface__map {
+  flex-basis: 100% !important;
+}
+
+body .cesium-viewer,
+body .cesium-widget {
+  height: 100% !important;
+  max-height: 100% !important;
+}
+
 :global {
   @media print {
     .nationalmap-print-disclaimer {

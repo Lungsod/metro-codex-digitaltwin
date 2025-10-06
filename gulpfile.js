@@ -76,7 +76,7 @@ gulp.task("render-index", function renderIndex(done) {
   // Arguments written in skewer-case can cause problems (unsure why), so stick to camelCase
   var options = minimist(process.argv.slice(2), {
     string: ["baseHref"],
-    default: { baseHref: "/" }
+    default: { baseHref: "/twin/" }
   });
 
   var index = fs.readFileSync("wwwroot/index.ejs", "utf8");

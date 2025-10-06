@@ -83,6 +83,33 @@ module.exports = function (devMode) {
             }
           }
         },
+        // import globe.gif
+        {
+          test: /globe\.gif$/,
+          include: path.resolve(__dirname, "..", "lib", "Styles"),
+          type: "asset",
+          parser: {
+            dataUrlCondition: {
+              maxSize: 65536 // < inline as data url if size < 64k
+            }
+          }
+        },
+        // handle css files
+        {
+          test: /\.css$/,
+          include: [path.resolve(__dirname, "..", "lib")],
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader
+            },
+            {
+              loader: "css-loader",
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
+        },
         // handle scss files
         {
           test: /\.scss$/,

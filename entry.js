@@ -18,10 +18,16 @@ function createLoader() {
   document.body.appendChild(loaderDiv);
 
   loadMainScript()
-    .catch((_err) => {
-      // Ignore errors and try to show the map anyway
-    })
     .then(() => {
+      // Import and call renderUi to mount the React app
+      return import("./lib/Views/render").then(({ renderUi }) => {
+        renderUi();
+      });
+    })
+    .catch((err) => {
+      console.error("Error loading main script:", err);
+    })
+    .finally(() => {
       loaderDiv.classList.add("loader-ui-hide");
       setTimeout(() => {
         document.body.removeChild(loaderDiv);

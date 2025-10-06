@@ -39,7 +39,8 @@
           "id": "esri-world-imagery",
           "name": "World Imagery",
           "type": "esri-mapServer",
-          "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+          "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+          "maximumScale": 1000
         },
         "image": "images/basemaps/topo.png"
       },

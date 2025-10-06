@@ -52,6 +52,12 @@ body {
     top: 0;
   }
 
+  // Hide the bottom-left attribution bar
+  // Target styled-components div that contains attribution text
+  body div[class*="BottomLeftBar"] {
+    display: none !important;
+  }
+
   @media print {
     .nationalmap-print-disclaimer {
       color: #000;

@@ -1,5 +1,6 @@
-const logoGif = require("./lib/Styles/loading.gif");
-import "./lib/Styles/loader.css";
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { Loader } from "./lib/Views/Loader";
 
 async function loadMainScript() {
   return import("terriajs/lib/Core/prerequisites")
@@ -8,13 +9,12 @@ async function loadMainScript() {
 }
 
 function createLoader() {
-  const loaderDiv = document.createElement("div");
-  loaderDiv.classList.add("loader-ui");
-  const loaderGif = document.createElement("img");
-  loaderGif.src = logoGif;
-  loaderDiv.appendChild(loaderGif);
-
-  document.body.appendChild(loaderDiv);
+  // Show the Loader component while loading
+  const container = document.getElementById("ui");
+  if (container) {
+    const root = createRoot(container);
+    root.render(<Loader />);
+  }
 
   loadMainScript()
     .then(() => {
@@ -25,12 +25,6 @@ function createLoader() {
     })
     .catch((err) => {
       console.error("Error loading main script:", err);
-    })
-    .finally(() => {
-      loaderDiv.classList.add("loader-ui-hide");
-      setTimeout(() => {
-        document.body.removeChild(loaderDiv);
-      }, 2000);
     });
 }
 

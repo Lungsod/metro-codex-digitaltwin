@@ -97,7 +97,7 @@ const loadPrivateCatalogWithAuth = async (terria) => {
           `Found ${newItems.length} new items to add (${catalogData.catalog.length - newItems.length} already loaded)`
         );
 
-        // Add only new items
+        // Add only new items (they will appear at the top of the catalog)
         for (const item of newItems) {
           console.log("Adding new catalog item:", item.name);
 

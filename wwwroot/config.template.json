@@ -40,6 +40,12 @@
         "minCharacters": 3
       }
     ],
+    "extraCreditLinks": [
+      {
+        "text": "Privacy Policy",
+        "url": "/twin/help/privacy.html"
+      }
+    ],
     "helpContent": [
       {
         "title": "translate#gettingstarted.title",

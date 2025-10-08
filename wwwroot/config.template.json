@@ -1,5 +1,5 @@
 {
-  "initializationUrls": ["simple"],
+  "initializationUrls": ["simple", "/api/twin/catalog.json"],
   "parameters": {
     "googleUrlShortenerKey": null,
     "googleAnalyticsKey": null,

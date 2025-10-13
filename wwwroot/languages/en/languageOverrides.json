@@ -121,5 +121,10 @@
       "basemap": "Basemap",
       "dataProvider": "Data Providers & Attribution"
     }
+  },
+  "models": {
+    "catalog": {
+      "upload": "Load data"
+    }
   }
 }

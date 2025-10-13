@@ -33,11 +33,13 @@
     "searchBarConfig": {},
     "searchProviders": [
       {
-        "id": "search-provider/cesium-ion",
-        "type": "cesium-ion-search-provider",
-        "name": "translate#viewModels.searchLocations",
+        "id": "search-provider/nominatim",
+        "type": "nominatim-search-provider",
+        "name": "Nominatim",
+        "countryCodes": "PH",
         "flightDurationSeconds": 1.5,
-        "minCharacters": 3
+        "minCharacters": 3,
+        "maxResults": 10
       }
     ],
     "extraCreditLinks": [

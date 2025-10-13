@@ -58,6 +58,11 @@ body {
     display: none !important;
   }
 
+  // Make branding images fit properly within their container
+  body div[class*="Branding"][class*="StyledDiv"] > img {
+    object-fit: contain !important;
+  }
+
   @media print {
     .nationalmap-print-disclaimer {
       color: #000;

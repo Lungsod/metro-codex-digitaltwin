@@ -56,5 +56,81 @@
     ],
     "defaultBaseMapId": "basemap-openstreetmap",
     "previewBaseMapId": "basemap-openstreetmap"
-  }
+  },
+  "catalog": [
+    {
+      "name": "3D Models",
+      "type": "group",
+      "members": [
+        {
+          "name": "OSM 3D Buildings",
+          "type": "3d-tiles",
+          "attribution": "OpenStreetMap",
+          "description": "OpenStreetMap 3D Building footprints",
+          "ionAssetId": 96188,
+          "ionAccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4MThkYzE1NC03ZmI3LTQwYmItYjI2YS00MzhlMDkzZjFhOTYiLCJpZCI6NjQzMTcsImlhdCI6MTYyOTEwMDgzMH0.Cb4eZ8RftYTwllMhTJrWg1VX6-FGKjJzLBhlIMRKyew",
+          "ionServer": "https://api.cesium.com",
+          "id": "3d-buildings",
+          "style": {
+            "show": "true",
+            "color": "color('#ffffff')"
+          },
+          "colorBlendMode": "REPLACE",
+          "modelDimensions": [
+            {
+              "id": "type",
+              "name": "Color by",
+              "selectedId": "type",
+              "options": [
+                {
+                  "id": "type",
+                  "name": "No color",
+                  "value": {
+                    "style": {
+                      "show": "true",
+                      "color": "color('#ffffff')"
+                    }
+                  }
+                },
+                {
+                  "id": "height",
+                  "name": "Building Height",
+                  "value": {
+                    "style": {
+                      "show": "true",
+                      "color": {
+                        "conditions": [
+                          [
+                            "${height} !== undefined && 0 < Number(${height}) && Number(${height}) <= 4.23",
+                            "color('#d7191c')"
+                          ],
+                          [
+                            "${height} !== undefined && 4.23 < Number(${height}) && Number(${height}) <= 6.45",
+                            "color('#fdae61')"
+                          ],
+                          [
+                            "${height} !== undefined && 6.45 < Number(${height}) && Number(${height}) <= 9.43",
+                            "color('#ffffbf')"
+                          ],
+                          [
+                            "${height} !== undefined && 9.43 < Number(${height}) && Number(${height}) <= 22.82",
+                            "color('#abdda4')"
+                          ],
+                          [
+                            "${height} !== undefined && 22.82 < Number(${height})",
+                            "color('#2b83ba')"
+                          ],
+                          ["true", "color('#E8F1F2')"]
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

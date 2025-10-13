@@ -52,6 +52,31 @@ body {
     top: 0;
   }
 
+  body .tjs-full_screen_button__fullScreenWrapper {
+    top: 68px !important;
+  }
+
+  body .tjs-story-editor__is-mounted {
+    background: rgba(0, 0, 0, 0.4) !important;
+    z-index: 99999 !important;
+  }
+
+  body .tjs-story-editor__inner {
+    position: relative;
+    top: 32px;
+  }
+
+  // Getting started
+  body div:has(> iframe[class*="VideoGuide___StyledIframe"]) {
+    width: 50%;
+    height: 50%;
+  }
+
+  // Story builder panel
+  body div[class*="StoryBuilder__Panel"] {
+    max-height: 100% !important;
+  }
+
   // Hide the bottom-left attribution bar
   // Target styled-components div that contains attribution text
   body div[class*="BottomLeftBar"] {

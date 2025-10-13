@@ -11,7 +11,7 @@
       "text": "Disclaimer: This map must not be used for navigation or precise spatial analysis",
       "url": ""
     },
-    "appName": "Codex",
+    "appName": "Codex Digital Twin",
     "brandBarElements": [
       "",
       "<img src=\"images/metro-logo.png\" height=\"72\" title=\"Version: {{version}}\" />",

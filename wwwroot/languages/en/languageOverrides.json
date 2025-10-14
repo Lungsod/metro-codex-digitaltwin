@@ -126,5 +126,9 @@
     "catalog": {
       "upload": "Load data"
     }
+  },
+  "story": {
+    "panelTitle": "Story editor",
+    "panelBody": "Create and share interactive stories directly from your map. Using this feature will remove temporary datasets uploaded using the \"Load data\" button."
   }
 }

@@ -30,7 +30,14 @@
       },
       "fallbackLanguage": "en"
     },
-    "searchBarConfig": {},
+    "searchBarConfig": {
+      "boundingBoxLimit": {
+        "west": 121.745356,
+        "south": 10.125709,
+        "east": 123.468837,
+        "north": 11.209387
+      }
+    },
     "searchProviders": [
       {
         "id": "search-provider/nominatim",

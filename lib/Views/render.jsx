@@ -36,13 +36,11 @@ Root.propTypes = {
   themeOverrides: PropTypes.object
 };
 
-export const renderUi = () => {
-  const container = document.getElementById("ui");
-  if (!container) {
-    console.error("Container element with id 'ui' not found.");
+export const renderUi = (root) => {
+  if (!root) {
+    console.error("Root is not provided.");
     return;
   }
 
-  const root = createRoot(container);
   root.render(<Root themeOverrides={Variables} />);
 };

@@ -234,3 +234,82 @@ h2 > a {
     margin-bottom: 20px;
   }
 }
+
+/* === Navbar sizing controls === */
+:root {
+  --nav-h: 64px; /* change this to resize */
+  --brand-img: 32px; /* logo size */
+}
+
+/* shrink Bootstrap navbar padding and enforce height */
+.navbar.navbar-compact {
+  --bs-navbar-padding-y: 0; /* kills default vertical padding */
+  min-height: var(--nav-h); /* use min-height so content can breathe */
+}
+
+.navbar.navbar-compact .container {
+  height: var(--nav-h);
+}
+.navbar.navbar-compact .navbar-brand {
+  display: flex;
+  align-items: center;
+}
+.navbar.navbar-compact .navbar-brand img {
+  width: var(--brand-img);
+  height: var(--brand-img);
+  margin-left: 10px;
+}
+.navbar.navbar-compact .nav {
+  height: 100%;
+  align-items: center;
+}
+.navbar.navbar-compact .nav .nav-link {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Vertically center the brand group without changing your structure */
+.navbar.navbar-compact .navbar-brand {
+  display: flex; /* use flex just inside the brand */
+  align-items: center; /* centers logo + text vertically */
+  height: 100%; /* match the bar height you already set */
+  padding: 0; /* remove extra brand padding */
+}
+
+.navbar.navbar-compact .navbar-brand img {
+  display: block; /* removes baseline gap under images */
+  width: var(--brand-img);
+  height: var(--brand-img);
+  margin-left: 10px;
+}
+
+.navbar.navbar-compact .navbar-brand span {
+  line-height: 1; /* prevents text from sitting lower */
+}
+
+/* Base link feel */
+.navbar.navbar-compact .nav .nav-link {
+  color: #fff;
+  opacity: 0.9;
+}
+.navbar.navbar-compact .nav .nav-link:hover {
+  opacity: 1;
+}
+
+/* Active tab: dark purple pill, no underline */
+.navbar.navbar-compact .nav .nav-link.active {
+  background-color: #2f275b; /* deep purple tone similar to your sample */
+  border-radius: 0.6rem;
+  padding: 0.25rem 0.75rem;
+  opacity: 1;
+}
+
+.navbar.navbar-compact .nav .nav-link {
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+}
+.navbar.navbar-compact .nav .nav-link:hover {
+  background-color: rgba(47, 39, 91, 0.4);
+  opacity: 1;
+}

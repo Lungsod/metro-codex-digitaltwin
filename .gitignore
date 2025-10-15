@@ -31,3 +31,6 @@ wwwroot/config.json
 package-lock.json
 .nvmrc
 .env
+
+sharedata/*
+!sharedata/.gitkeep

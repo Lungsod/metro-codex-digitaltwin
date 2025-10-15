@@ -5,6 +5,7 @@
     "lib/**/*.tsx",
     "lib/**/*.js",
     "lib/**/*.jsx",
-    "types/**/*.d.ts"
+    "types/**/*.d.ts",
+    "server/lib/share.js"
   ]
 }

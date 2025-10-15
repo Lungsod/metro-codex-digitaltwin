@@ -17,6 +17,7 @@
       "<img src=\"images/metro-logo.png\" height=\"72\" title=\"Version: {{version}}\" />",
       ""
     ],
+    "shortenShareUrls": true,
     "aboutButtonHrefUrl": "about/",
     "supportEmail": "smartmetro.upd@up.edu.ph",
     "proj4ServiceBaseUrl": "proj4def/",

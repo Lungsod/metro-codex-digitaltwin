@@ -10,6 +10,9 @@ const fs = require("fs");
 const makeserver = require("terriajs-server/lib/makeserver");
 const options = require("terriajs-server/lib/options");
 
+// Import our custom share service
+const createShareRouter = require("./server/lib/share");
+
 // Initialize options from serverconfig.json
 options.init(false);
 
@@ -79,6 +82,27 @@ app.use(
     }
   )
 );
+
+// Mount the share service
+const shareRouter = createShareRouter({
+  storageDir: path.join(__dirname, "sharedata"),
+  prefix: "l",
+  maxRequestSize: "1000kb",
+  port: options.port
+});
+app.use("/twin/share", shareRouter);
+
+// Expose server configuration (needed by ShareDataService on client)
+app.get("/twin/serverconfig", (req, res) => {
+  res.json({
+    newShareUrlPrefix: "l",
+    shareUrlPrefixes: {
+      l: {
+        service: "file"
+      }
+    }
+  });
+});
 
 // Mount the terria app at /twin
 app.use("/twin", terriaApp);

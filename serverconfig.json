@@ -1,6 +1,14 @@
 {
   "port": 3001,
 
+  "newShareUrlPrefix": "l",
+
+  "shareUrlPrefixes": {
+    "l": {
+      "service": "file"
+    }
+  },
+
   "allowProxyFor": [
     "nicta.com.au",
     "gov.au",

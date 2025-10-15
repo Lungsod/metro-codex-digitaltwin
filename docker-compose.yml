@@ -5,10 +5,9 @@ services:
       dockerfile: Dockerfile
       target: deploy
     ports:
-      - "${PORT:-3001}:${PORT:-3001}"
+      - "${PORT:-3001}:3001"
     environment:
       - NODE_ENV=production
-      - PORT=${PORT:-3001}
       - CESIUM_ION_ACCESS_TOKEN=${CESIUM_ION_ACCESS_TOKEN}
       - USE_CESIUM_ION_TERRAIN=${USE_CESIUM_ION_TERRAIN}
       - BING_MAPS_KEY=${BING_MAPS_KEY}

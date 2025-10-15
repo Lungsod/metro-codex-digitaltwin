@@ -21,7 +21,7 @@ Install the required packages, run gulp to bundle the files, and then run the in
 
 ```
 npm install
-yarn gulp
+yarn gulp --baseHref="/twin/"
 yarn start
 ```
 

@@ -8,7 +8,7 @@
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="/favicon.png">
+  <link rel="icon" href="favicons/android-icon-36x36.png">
 
   <title>About - Codex Digital Twin</title>
 
@@ -36,47 +36,37 @@
 <body>
 
   <!-- Fixed navbar -->
-  <nav class="navbar navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="https://www.facebook.com/lungsodph">
-        <img alt="Brand" src="help/img/metro-logo.png"
-          style="margin: auto auto; margin-left: 10px; width: 52px; height: 52px;">
+  <nav class="navbar navbar-dark bg-dark fixed-top position-relative navbar-compact">
+    <div class="container d-flex align-items-center justify-content-between position-relative">
+      <a class="navbar-brand text-white text-decoration-none" href="/twin">
+        <img alt="Brand" src="images/metro-logo.png">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
-        aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li><a class="nav-link active" href="/twin/about.html">About Smart Metro &amp; LUNGSOD</a></li>
-          <li><a class="nav-link" href="/twin/help/privacy.html">Privacy Policy</a></li>
-          <li><a class="nav-link" href="/twin" target="blank">Launch Codex Digital Twin</a></li>
-        </ul>
-      </div><!--/.nav-collapse -->
+
+      <ul class="nav position-absolute top-50 start-50 translate-middle">
+        <li class="nav-item"><a class="nav-link text-white" href="/twin/about.html">About Smart Metro &amp; LUNGSOD</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="/twin/help/privacy.html">Privacy Policy</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="/twin" target="_blank">Launch Codex Digital Twin</a></li>
+      </ul>
     </div>
   </nav>
 
+
   <!-- Begin page content -->
-  <div class="container content">
+  <div class="container content" style="margin-top: -20px;">
     <div class="row">
       <div class="col-sm-9">
 
-        <h1>About Smart Metro and LUNGSOD</h2>
+        <h1>About SMART METRO and LUNGSOD</h2>
 
           <p>
-            <strong>Smart Metro</strong> is a research project funded by the Department of Science and Technology -
-            Philippine Council for Industry, Energy, and Emerging Technology Research and Development <a
-              href="https://pcieerd.dost.gov.ph/">(DOST-PCIEERD)</a> implemented by the UP Training Center for Applied
-            Geodesy and Photogrammetry (UP TCAGP). It is an offshoot of <strong>Project LUNGSOD</strong>, a link-up of
-            geomatics and social science research for the development of smarter cities funded and implemented by the
-            same institutions above. Smart Metro intends to explore different scales and aspects of smart development,
-            specifically the comprehensive and collaborative development of LGUs within a region.
+            <strong> METRO (Modern Geospatial and Collaborative Solutions for the Development of Smart Regions) </strong>
+            is a research project funded by the Department of Science and Technology - Philippine Council for Industry, Energy,
+            and Emerging Technology Research and Development (<a href=https://pcieerd.dost.gov.ph>DOST-PCIEERD</a>) implemented by 
+            the UP Training Center for Applied Geodesy and Photogrammetry (UP TCAGP). It is an offshoot of <strong>Project LUNGSOD</strong>, 
+            a link-up of geomatics and social science research for the development of smarter cities funded and implemented by 
+            the same institutions above. <strong></strong>SMART METRO</strong> intends to explore different scales and aspects 
+            of smart development, specifically the comprehensive and collaborative development of LGUs within a region.
           </p>
-
-          <!-- 4:3 aspect ratio -->
-          <div class="ratio ratio-4x3">
-            <iframe src="https://www.youtube.com/watch?v=OpvYq-UetUE"></iframe>
-          </div>
 
           </p>
           The <strong>Codex Digital Twin</strong> is web-based application created for the member LGUs of the
@@ -101,7 +91,7 @@
 
           <p>
             To see what data is available on the platform, refer to the Data Catalogue in the <a
-              href="https://codex.migedc.lungsod.ph">Codex Digital Twin</a> itself. Click the <b>Data
+              href="https://codex.migedc.lungsod.ph/twin">Codex Digital Twin</a> itself. Click the <b>Data
               Catalogue</b> tab and expand the Data Set group names.
           </p>
 
@@ -180,7 +170,7 @@
     <div class="container">
       <p class="text-muted">
         &copy; Smart Metro Research Team, UP Training Center for Applied Geodesy and Photogrammetry, University of the
-        Philippines Diliman 2021-2024. All Rights Reserved.
+        Philippines Diliman 2021-2025. All Rights Reserved.
       </p>
       <p><strong><a href="about.html#terms">Terms and conditions</a></strong> – <strong><a
             href="help/privacy.html">Privacy</a></strong></p>
@@ -200,6 +190,23 @@
   
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
   <script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const path = location.pathname;
+    document.querySelectorAll('.navbar .nav-link').forEach(a => {
+      const href = a.getAttribute('href') || "";
+      if (a.target === "_blank") return; // skip external launcher
+      if (
+        path === href ||
+        path.endsWith(href) ||
+        (href.includes('about') && path.includes('about')) ||
+        (href.includes('privacy') && path.includes('privacy'))
+      ) {
+        a.classList.add('active');
+      }
+    });
+  });
+  </script>
 </body>
 
 </html>

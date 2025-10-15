@@ -32,32 +32,52 @@
   <body>
     <!-- Fixed navbar -->
     <nav
-      class="navbar navbar-dark bg-dark fixed-top position-relative navbar-compact"
+      class="navbar navbar-dark navbar-expand-lg fixed-top position-relative navbar-compact"
     >
-      <div
-        class="container d-flex align-items-center justify-content-between position-relative"
-      >
+      <div class="container position-relative">
         <a class="navbar-brand text-white text-decoration-none" href="/twin">
           <img alt="Brand" src="/twin/images/metro-logo.png" />
         </a>
 
-        <ul class="nav position-absolute top-50 start-50 translate-middle">
-          <li class="nav-item">
-            <a class="nav-link text-white" href="/twin/about/"
-              >About Smart Metro &amp; LUNGSOD</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="/twin/help/privacy/"
-              >Privacy Policy</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="/twin" target="_blank"
-              >Launch Codex Digital Twin</a
-            >
-          </li>
-        </ul>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#primaryNav"
+          aria-controls="primaryNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div
+          class="collapse navbar-collapse justify-content-left"
+          id="primaryNav"
+        >
+          <ul class="navbar-nav text-center text-lg-start gap-2 gap-lg-3">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/twin/about/"
+                >About SMART METRO &amp; LUNGSOD</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/twin/help/privacy/"
+                >Privacy Policy</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link text-white"
+                href="/twin"
+                target="_blank"
+                rel="noopener"
+              >
+                Launch Codex Digital Twin
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
 
@@ -83,7 +103,7 @@
           </p>
 
           <p>
-            We are committed to protecting your privacy. The Smart Metro
+            We are committed to protecting your privacy. The SMART METRO
             Dashboard website (this website) complies with the National Privacy
             Commission's guidelines and with the Data Privacy Act of 2012.
           </p>
@@ -134,7 +154,7 @@
           </p>
 
           <h2>
-            Information logged when browsing the Smart Metro Dashboard website
+            Information logged when browsing the SMART METRO Dashboard website
           </h2>
 
           <p>
@@ -269,7 +289,7 @@
     <footer class="footer">
       <div class="container">
         <p class="text-muted">
-          &copy; Smart Metro Research Team, UP Training Center for Applied
+          &copy; SMART METRO Research Team, UP Training Center for Applied
           Geodesy and Photogrammetry, University of the Philippines Diliman
           2021-2024. All Rights Reserved.
         </p>

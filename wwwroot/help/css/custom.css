@@ -93,7 +93,7 @@ ul {
 }
 
 .navbar-inverse {
-  background-color: #4c4a89;
+  background-color: #433977;
   border-color: #080808;
 }
 
@@ -108,7 +108,7 @@ ul {
 }
 
 .navbar-inverse .navbar-nav > .active > a {
-  background-color: #4c4a89;
+  background-color: #433977;
 }
 .navbar-inverse .navbar-nav > .active > a:hover {
   background-color: #d3d6fd;
@@ -197,28 +197,25 @@ h2 > a {
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  .navbar {
+  .navbar.navbar-compact {
     min-height: 80px;
     background-color: #433977 !important;
   }
 
-  .navbar-nav > li > a {
-    margin-top: 20px;
+  .navbar.navbar-compact .navbar-nav > li > a {
+    margin-top: 0;
     padding-top: 10px;
     padding-bottom: 10px;
   }
 
-  .navbar-brand {
+  .navbar.navbar-compact .navbar-brand {
     margin-right: 80px;
     padding-top: 15px;
     padding-bottom: 15px;
-  }
-
-  .navbar-brand {
     height: 80px;
   }
 
-  .navbar-brand img {
+  .navbar.navbar-compact .navbar-brand img {
     width: 170px;
   }
 
@@ -245,29 +242,37 @@ h2 > a {
 .navbar.navbar-compact {
   --bs-navbar-padding-y: 0; /* kills default vertical padding */
   min-height: var(--nav-h); /* use min-height so content can breathe */
+  background-color: #433977;
+  --bs-navbar-toggler-border-color: rgba(255, 255, 255, 0.4);
 }
 
 .navbar.navbar-compact .container {
-  height: var(--nav-h);
+  min-height: var(--nav-h);
 }
 .navbar.navbar-compact .navbar-brand {
   display: flex;
   align-items: center;
 }
 .navbar.navbar-compact .navbar-brand img {
-  height: auto; /* let it scale naturally */
-  width: 120px; /* adjust this to fit your new logo */
-  max-height: var(--nav-h); /* never taller than navbar */
+  display: block; /* removes baseline gap under images */
+  width: var(--brand-img);
+  max-height: var(--nav-h);
+  height: auto;
   margin-left: 10px;
   object-fit: contain;
 }
-.navbar.navbar-compact .nav {
-  height: 100%;
-  align-items: center;
+
+.navbar.navbar-compact .navbar-toggler {
+  border-color: var(--bs-navbar-toggler-border-color);
 }
-.navbar.navbar-compact .nav .nav-link {
-  padding-top: 0;
-  padding-bottom: 0;
+
+.navbar.navbar-compact .navbar-toggler:focus {
+  box-shadow: 0 0 0 0.15rem rgba(255, 255, 255, 0.3);
+}
+
+.navbar.navbar-compact .navbar-collapse {
+  background-color: #433977;
+  padding: 0.75rem 0;
 }
 
 /* Vertically center the brand group without changing your structure */
@@ -281,7 +286,8 @@ h2 > a {
 .navbar.navbar-compact .navbar-brand img {
   display: block; /* removes baseline gap under images */
   width: var(--brand-img);
-  height: var(--brand-img);
+  max-height: var(--nav-h);
+  height: auto;
   margin-left: 10px;
 }
 
@@ -293,25 +299,43 @@ h2 > a {
 .navbar.navbar-compact .nav .nav-link {
   color: #fff;
   opacity: 0.9;
+  padding: 0.5rem 0.75rem;
 }
 .navbar.navbar-compact .nav .nav-link:hover {
   opacity: 1;
 }
 
 /* Active tab: dark purple pill, no underline */
-.navbar.navbar-compact .nav .nav-link.active {
-  background-color: #2f275b; /* deep purple tone similar to your sample */
-  border-radius: 0.6rem;
+.nav-link.active {
+  background-color: #2f275b /* deep purple tone similar to your sample */ !important;
+  border-radius: 0.25rem;
   padding: 0.25rem 0.75rem;
   opacity: 1;
 }
 
-.navbar.navbar-compact .nav .nav-link {
+.nav-link {
   transition:
     background-color 0.2s ease,
     opacity 0.2s ease;
 }
-.navbar.navbar-compact .nav .nav-link:hover {
+.nav-link:hover {
   background-color: rgba(47, 39, 91, 0.4);
   opacity: 1;
+  border-radius: 0.25rem;
+}
+
+@media (min-width: 992px) {
+  .navbar.navbar-compact .navbar-collapse {
+    background-color: transparent;
+    padding: 0;
+  }
+
+  .navbar.navbar-compact .navbar-nav {
+    align-items: center;
+  }
+
+  .navbar.navbar-compact .nav .nav-link {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }

@@ -238,7 +238,7 @@ h2 > a {
 /* === Navbar sizing controls === */
 :root {
   --nav-h: 64px; /* change this to resize */
-  --brand-img: 32px; /* logo size */
+  --brand-img: 240px; /* logo size */
 }
 
 /* shrink Bootstrap navbar padding and enforce height */
@@ -255,9 +255,11 @@ h2 > a {
   align-items: center;
 }
 .navbar.navbar-compact .navbar-brand img {
-  width: var(--brand-img);
-  height: var(--brand-img);
+  height: auto; /* let it scale naturally */
+  width: 120px; /* adjust this to fit your new logo */
+  max-height: var(--nav-h); /* never taller than navbar */
   margin-left: 10px;
+  object-fit: contain;
 }
 .navbar.navbar-compact .nav {
   height: 100%;

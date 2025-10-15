@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" class="terria">
-<head>
-    <base href="<%= baseHref %>">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">  <!-- Use Chrome Frame in IE -->
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <meta name="description" content="A web map built on Terria Map">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+  <head>
+    <base href="<%= baseHref %>" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <!-- Use Chrome Frame in IE -->
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
+    />
+    <meta name="description" content="A web map built on Terria Map" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <link rel="apple-touch-icon" sizes="57x57" href="<%= baseHref %>favicons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="<%= baseHref %>favicons/apple-icon-60x60.png">
@@ -30,9 +34,15 @@
     <link rel="stylesheet" type="text/css" href="<%= baseHref %>build/TerriaMap.css">
 
     <!-- Leaflet -->
-    <script>L_PREFER_CANVAS = true;</script>
-</head>
+    <script>
+      L_PREFER_CANVAS = true;
+    </script>
+  </head>
 
+  <body>
+    <div id="svg-sprites" style="display: none"></div>
+    <div id="ui"></div>
+  </body>
 <body>
 
 <div id='ui'></div>

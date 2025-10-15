@@ -19,6 +19,17 @@ var watchOptions = {
   interval: 1000
 };
 
+const getBaseHref = () => {
+  var minimist = require("minimist");
+  // Arguments written in skewer-case can cause problems (unsure why), so stick to camelCase
+  var options = minimist(process.argv.slice(2), {
+    string: ["baseHref"],
+    default: { baseHref: "/" }
+  });
+
+  return options.baseHref;
+};
+
 gulp.task("check-terriajs-dependencies", function (done) {
   var appPackageJson = require("./package.json");
   var terriaPackageJson = require("terriajs/package.json");
@@ -99,7 +110,6 @@ gulp.task("render-index", function renderIndex(done) {
 gulp.task(
   "build-app",
   gulp.parallel(
-    "render-index",
     gulp.series(
       "update-config",
       "check-terriajs-dependencies",
@@ -107,7 +117,10 @@ gulp.task(
       function buildApp(done) {
         var runWebpack = require("terriajs/buildprocess/runWebpack.js");
         var webpack = require("webpack");
-        var webpackConfig = require("./buildprocess/webpack.config.js")(true);
+        var webpackConfig = require("./buildprocess/webpack.config.js")({
+          devMode: true,
+          baseHref: getBaseHref()
+        });
 
         checkForDuplicateCesium();
 
@@ -120,7 +133,6 @@ gulp.task(
 gulp.task(
   "release-app",
   gulp.parallel(
-    "render-index",
     gulp.series(
       "update-config",
       "check-terriajs-dependencies",
@@ -128,7 +140,10 @@ gulp.task(
       function releaseApp(done) {
         var runWebpack = require("terriajs/buildprocess/runWebpack.js");
         var webpack = require("webpack");
-        var webpackConfig = require("./buildprocess/webpack.config.js")(false);
+        var webpackConfig = require("./buildprocess/webpack.config.js")({
+          devMode: false,
+          baseHref: getBaseHref()
+        });
 
         checkForDuplicateCesium();
 
@@ -142,13 +157,6 @@ gulp.task(
       }
     )
   )
-);
-
-gulp.task(
-  "watch-render-index",
-  gulp.series("render-index", function watchRenderIndex() {
-    gulp.watch(["wwwroot/index.ejs"], gulp.series("render-index"));
-  })
 );
 
 gulp.task(
@@ -306,11 +314,25 @@ gulp.task("terriajs-server", terriajsServerGulpTask(3001));
 gulp.task("build", gulp.series("copy-terriajs-assets", "build-app"));
 gulp.task("release", gulp.series("copy-terriajs-assets", "release-app"));
 gulp.task("watch", gulp.parallel("watch-terriajs-assets", "watch-app"));
-// Run render-index before starting terriajs-server because terriajs-server won't
-//  start if index.html isn't present
+// Simple task that waits for index.html then starts server
 gulp.task(
   "dev",
-  gulp.parallel(gulp.series("render-index", "terriajs-server"), "watch")
+  gulp.parallel("watch", function startServerWhenReady(done) {
+    const indexFile = path.join(__dirname, "wwwroot", "index.html");
+
+    if (fs.existsSync(indexFile)) {
+      terriajsServerGulpTask(3001)(done);
+      return;
+    }
+    var watcher = gulp.watch(
+      path.join(__dirname, "wwwroot", "index.html"),
+      watchOptions
+    );
+    watcher.on("add", function () {
+      watcher.close();
+      terriajsServerGulpTask(3001)(done);
+    });
+  })
 );
 
 // Watch for .env file changes and update config

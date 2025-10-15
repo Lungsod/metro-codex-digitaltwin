@@ -10,7 +10,7 @@ COPY --chown=node:node . /app
 WORKDIR /app
 
 RUN npm install
-RUN yarn gulp release
+RUN yarn gulp release --baseHref="/twin/"
 
 # deploy container
 FROM node:24-slim AS deploy

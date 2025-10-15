@@ -4,7 +4,7 @@ import { MenuLeft } from "terriajs/lib/ReactViews/StandardUserInterface/customiz
 import MenuItem from "terriajs/lib/ReactViews/StandardUserInterface/customizable/MenuItem";
 import StandardUserInterface from "terriajs/lib/ReactViews/StandardUserInterface/StandardUserInterface";
 import version from "../../version";
-import React, { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AuthProvider,
   Navigation,
@@ -21,15 +21,25 @@ export const TerriaUserInterfaceInner = ({
 }) => {
   const [showLogin, setShowLogin] = useState(false);
   const { isAuthenticated, user } = useAuth();
+  const prevAuthRef = useRef(isAuthenticated);
 
   // Debug: Log authentication state changes
-  React.useEffect(() => {
-    console.log("[UserInterface] Auth state changed:", {
-      isAuthenticated,
-      user,
-      hasAccessToken: !!Cookies.get("access_token")
-    });
-  }, [isAuthenticated, user]);
+  // useEffect(() => {
+  //  console.log("[UserInterface] Auth state changed:", {
+  //    isAuthenticated,
+  //    user,
+  //    hasAccessToken: !!Cookies.get("access_token")
+  //  });
+  // }, [isAuthenticated, user]);
+
+  // Force refresh when user logs out (isAuthenticated becomes false)
+  useEffect(() => {
+    if (prevAuthRef.current === true && isAuthenticated === false) {
+      console.log("[UserInterface] User logged out, refreshing page...");
+      window.location.reload();
+    }
+    prevAuthRef.current = isAuthenticated;
+  }, [isAuthenticated]);
 
   const navLinks = [
     { label: "Digital Twin", href: "/twin", active: true },

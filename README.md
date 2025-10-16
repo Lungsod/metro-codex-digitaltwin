@@ -1,3 +1,30 @@
+# Codex Digital Twin
+
+## Quickstart
+
+Clone this repository.
+
+Create a .env file at the root
+
+```ini
+# Cesium Ion Access Token
+CESIUM_ION_ACCESS_TOKEN=your_cesium_ion_access_token_here
+
+# Use Cesium Ion Terrain (true/false)
+USE_CESIUM_ION_TERRAIN=true
+
+# Bing Maps Key
+BING_MAPS_KEY=your_bing_maps_key_here
+```
+
+Install the required packages, run gulp to bundle the files, and then run the included Express server.
+
+```
+npm install
+yarn gulp --baseHref="/twin/"
+yarn start
+```
+
 # Terria Map
 
 [![Build Status](https://github.com/TerriaJS/TerriaMap/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/TerriaJS/TerriaMap/actions/workflows/ci.yml) [![Docs](https://img.shields.io/badge/docs-online-blue.svg)](https://docs.terria.io/)

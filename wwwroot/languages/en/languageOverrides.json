@@ -115,5 +115,20 @@
   "helpContentTerm8": {
     "term": "preview style",
     "content": "The way the dataset appears in the preview window. We recommend true colour to search for cloud-free images"
+  },
+  "map": {
+    "extraCreditLinks": {
+      "basemap": "Basemap",
+      "dataProvider": "Data Providers & Attribution"
+    }
+  },
+  "models": {
+    "catalog": {
+      "upload": "Load data"
+    }
+  },
+  "story": {
+    "panelTitle": "Story editor",
+    "panelBody": "Create and share interactive stories directly from your map. Using this feature will remove temporary datasets uploaded using the \"Load data\" button."
   }
 }

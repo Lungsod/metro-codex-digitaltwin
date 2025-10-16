@@ -24,6 +24,9 @@
     "url": "http://github.com/TerriaJS/TerriaMap"
   },
   "dependencies": {
+    "@smartmetro/codex-auth": "github:Lungsod/codex-auth",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
     "terriajs-server": "^4.0.2"
   },
   "config": {
@@ -62,7 +65,7 @@
     "minimist": "^1.2.8",
     "node-notifier": "^10.0.1",
     "plugin-error": "^2.0.1",
-    "prettier": "2.8.8",
+    "prettier": "^3.6.2",
     "pretty-quick": "^4.0.0",
     "prop-types": "^15.6.0",
     "react": "^18.3.1",
@@ -87,10 +90,12 @@
     "docker-build-local": "node deploy/docker/create-docker-context.js --build --push --tag auto --local",
     "docker-build-prod": "node deploy/docker/create-docker-context.js --build --push --tag auto --repository=ghcr.io/terriajs",
     "docker-build-ci": "node deploy/docker/create-docker-context.js --build",
-    "start": "terriajs-server --config-file serverconfig.json",
+    "start": "node scripts/update-config.js && node server.js",
     "gulp": "gulp",
-    "postinstall": "echo 'Installation successful. What to do next:\\n  yarn gulp dev   # Starts the server on port 3001, builds TerriaMap and dependencies, and rebuilds if files change.'",
+    "postinstall": "node scripts/update-config.js && echo 'Installation successful. What to do next:\\n  yarn gulp dev   # Starts the server on port 3001, builds TerriaMap and dependencies, and rebuilds if files change.'",
+    "hot": "node scripts/update-config.js && webpack-dev-server --inline --config buildprocess/webpack.config.hot.js --hot --host 0.0.0.0",
     "prettier": "prettier --write .",
-    "prettier-check": "prettier --check ."
+    "prettier-check": "prettier --check .",
+    "update-config": "node scripts/update-config.js"
   }
 }

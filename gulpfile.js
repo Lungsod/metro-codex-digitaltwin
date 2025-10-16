@@ -81,10 +81,37 @@ gulp.task("write-version", function (done) {
   done();
 });
 
+gulp.task("update-config", function (done) {
+  const { execSync } = require("child_process");
+  try {
+    execSync("node scripts/update-config.js", { stdio: "inherit" });
+    done();
+  } catch (error) {
+    done(error);
+  }
+});
+
+gulp.task("render-index", function renderIndex(done) {
+  var ejs = require("ejs");
+  var minimist = require("minimist");
+  // Arguments written in skewer-case can cause problems (unsure why), so stick to camelCase
+  var options = minimist(process.argv.slice(2), {
+    string: ["baseHref"],
+    default: { baseHref: "/" }
+  });
+
+  var index = fs.readFileSync("wwwroot/index.ejs", "utf8");
+  var indexResult = ejs.render(index, { baseHref: options.baseHref });
+
+  fs.writeFileSync(path.join("wwwroot", "index.html"), indexResult);
+  done();
+});
+
 gulp.task(
   "build-app",
   gulp.parallel(
     gulp.series(
+      "update-config",
       "check-terriajs-dependencies",
       "write-version",
       function buildApp(done) {
@@ -107,6 +134,7 @@ gulp.task(
   "release-app",
   gulp.parallel(
     gulp.series(
+      "update-config",
       "check-terriajs-dependencies",
       "write-version",
       function releaseApp(done) {
@@ -134,20 +162,24 @@ gulp.task(
 gulp.task(
   "watch-app",
   gulp.parallel(
-    gulp.series("check-terriajs-dependencies", function watchApp(done) {
-      var fs = require("fs");
-      var watchWebpack = require("terriajs/buildprocess/watchWebpack");
-      var webpack = require("webpack");
-      var webpackConfig = require("./buildprocess/webpack.config.js")({
-        devMode: true,
-        baseHref: getBaseHref()
-      });
+    gulp.series(
+      "update-config",
+      "check-terriajs-dependencies",
+      function watchApp(done) {
+        var fs = require("fs");
+        var watchWebpack = require("terriajs/buildprocess/watchWebpack");
+        var webpack = require("webpack");
+        var webpackConfig = require("./buildprocess/webpack.config.js")(
+          true,
+          false
+        );
 
-      checkForDuplicateCesium();
+        checkForDuplicateCesium();
 
-      fs.writeFileSync("version.js", "module.exports = 'Development Build';");
-      watchWebpack(webpack, webpackConfig, done);
-    })
+        fs.writeFileSync("version.js", "module.exports = 'Development Build';");
+        watchWebpack(webpack, webpackConfig, done);
+      }
+    )
   )
 );
 
@@ -301,4 +333,9 @@ gulp.task(
     });
   })
 );
+
+// Watch for .env file changes and update config
+gulp.task("watch-env", function () {
+  gulp.watch([".env"], gulp.series("update-config"));
+});
 gulp.task("default", gulp.series("lint", "build"));

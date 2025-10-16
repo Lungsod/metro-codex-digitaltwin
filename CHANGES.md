@@ -126,9 +126,7 @@ Failed release workflow
 **2023-05-22**
 
 - Update TerriaJS to `8.3.0`
-
   - **Breaking changes:**
-
     - **Upgraded Mobx to version 6.7.x**
     - **Upgraded Typescript to version 4.9.x**
 

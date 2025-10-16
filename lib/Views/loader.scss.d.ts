@@ -1,8 +1,10 @@
 declare namespace LoaderScssNamespace {
   export interface ILoaderScss {
     "loader-ui": string;
+    "loader-ui-grabber": string;
     "loader-ui-hide": string;
     loaderUi: string;
+    loaderUiGrabber: string;
     loaderUiHide: string;
   }
 }

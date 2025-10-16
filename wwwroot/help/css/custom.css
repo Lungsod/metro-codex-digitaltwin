@@ -1,0 +1,341 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 150px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 100px;
+  background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+/* Custom page CSS: PG
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body {
+  color: #484848;
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.embed-responsive {
+  margin-bottom: 20px;
+}
+
+ul {
+  margin-left: 20px;
+  padding-left: 0;
+}
+
+.content ul li {
+  margin-bottom: 10px;
+}
+
+.how-to,
+.key-features,
+.faq {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.side-nav {
+  margin-bottom: 50px;
+}
+
+.side-nav a {
+  text-decoration: none;
+}
+
+.side-nav .active {
+  font-weight: bold;
+}
+
+.nav-header {
+  font-size: 16px;
+  margin-top: 25px;
+  font-weight: 500;
+}
+
+.nav-header:first-of-type {
+  margin-top: 0px;
+}
+
+.navbar-inverse {
+  background-color: #433977;
+  border-color: #080808;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #ccc;
+  border-radius: 0.2em;
+  margin-right: 5px;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+  background-color: #d3d6fd;
+}
+
+.navbar-inverse .navbar-nav > .active > a {
+  background-color: #433977;
+}
+.navbar-inverse .navbar-nav > .active > a:hover {
+  background-color: #d3d6fd;
+}
+
+.navbar-brand {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.navbar-brand img {
+  width: 140px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 300;
+  font-family: "Open Sans", sans-serif;
+}
+
+h1:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1 {
+  font-size: 26px;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 22px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.partners img {
+  width: 160px;
+  margin-bottom: 30px;
+  align-content: center;
+}
+
+.panel-group .panel {
+  border: none;
+  border-radius: 0;
+}
+
+.panel-default > .panel-heading {
+  background-color: #ffffff;
+  padding-left: 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.panel-body {
+  padding-left: 0;
+}
+
+.affix {
+  position: static;
+}
+
+/* archor styling */
+
+h2 > a {
+  text-decoration: none;
+  color: #484848;
+}
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .affix {
+    position: fixed;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+/* @media (min-width: @screen-md-min) { ... } */
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .navbar.navbar-compact {
+    min-height: 80px;
+    background-color: #433977 !important;
+  }
+
+  .navbar.navbar-compact .navbar-nav > li > a {
+    margin-top: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .navbar.navbar-compact .navbar-brand {
+    margin-right: 80px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    height: 80px;
+  }
+
+  .navbar.navbar-compact .navbar-brand img {
+    width: 170px;
+  }
+
+  .content {
+    margin-top: 80px;
+  }
+
+  .nav-header:first-of-type {
+    margin-top: 25px;
+  }
+
+  .screenshot {
+    margin-bottom: 20px;
+  }
+}
+
+/* === Navbar sizing controls === */
+:root {
+  --nav-h: 64px; /* change this to resize */
+  --brand-img: 240px; /* logo size */
+}
+
+/* shrink Bootstrap navbar padding and enforce height */
+.navbar.navbar-compact {
+  --bs-navbar-padding-y: 0; /* kills default vertical padding */
+  min-height: var(--nav-h); /* use min-height so content can breathe */
+  background-color: #433977;
+  --bs-navbar-toggler-border-color: rgba(255, 255, 255, 0.4);
+}
+
+.navbar.navbar-compact .container {
+  min-height: var(--nav-h);
+}
+.navbar.navbar-compact .navbar-brand {
+  display: flex;
+  align-items: center;
+}
+.navbar.navbar-compact .navbar-brand img {
+  display: block; /* removes baseline gap under images */
+  width: var(--brand-img);
+  max-height: var(--nav-h);
+  height: auto;
+  margin-left: 10px;
+  object-fit: contain;
+}
+
+.navbar.navbar-compact .navbar-toggler {
+  border-color: var(--bs-navbar-toggler-border-color);
+}
+
+.navbar.navbar-compact .navbar-toggler:focus {
+  box-shadow: 0 0 0 0.15rem rgba(255, 255, 255, 0.3);
+}
+
+.navbar.navbar-compact .navbar-collapse {
+  background-color: #433977;
+  padding: 0.75rem 0;
+}
+
+/* Vertically center the brand group without changing your structure */
+.navbar.navbar-compact .navbar-brand {
+  display: flex; /* use flex just inside the brand */
+  align-items: center; /* centers logo + text vertically */
+  height: 100%; /* match the bar height you already set */
+  padding: 0; /* remove extra brand padding */
+}
+
+.navbar.navbar-compact .navbar-brand img {
+  display: block; /* removes baseline gap under images */
+  width: var(--brand-img);
+  max-height: var(--nav-h);
+  height: auto;
+  margin-left: 10px;
+}
+
+.navbar.navbar-compact .navbar-brand span {
+  line-height: 1; /* prevents text from sitting lower */
+}
+
+/* Base link feel */
+.navbar.navbar-compact .nav .nav-link {
+  color: #fff;
+  opacity: 0.9;
+  padding: 0.5rem 0.75rem;
+}
+.navbar.navbar-compact .nav .nav-link:hover {
+  opacity: 1;
+}
+
+/* Active tab: dark purple pill, no underline */
+.nav-link.active {
+  background-color: #2f275b /* deep purple tone similar to your sample */ !important;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  opacity: 1;
+}
+
+.nav-link {
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+}
+.nav-link:hover {
+  background-color: rgba(47, 39, 91, 0.4);
+  opacity: 1;
+  border-radius: 0.25rem;
+}
+
+@media (min-width: 992px) {
+  .navbar.navbar-compact .navbar-collapse {
+    background-color: transparent;
+    padding: 0;
+  }
+
+  .navbar.navbar-compact .navbar-nav {
+    align-items: center;
+  }
+
+  .navbar.navbar-compact .nav .nav-link {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}

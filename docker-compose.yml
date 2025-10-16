@@ -1,0 +1,17 @@
+services:
+  metro-codex:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: deploy
+    ports:
+      - "${PORT:-3001}:3001"
+    environment:
+      - NODE_ENV=production
+      - CESIUM_ION_ACCESS_TOKEN=${CESIUM_ION_ACCESS_TOKEN}
+      - USE_CESIUM_ION_TERRAIN=${USE_CESIUM_ION_TERRAIN}
+      - BING_MAPS_KEY=${BING_MAPS_KEY}
+    restart: unless-stopped
+    # volumes:
+    # Optional: mount config if you want to override at runtime
+    # - ./wwwroot/config.json:/app/wwwroot/config.json:ro

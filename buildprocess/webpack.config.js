@@ -19,7 +19,7 @@ module.exports = function ({ devMode, baseHref = "/" }) {
     output: {
       path: path.resolve(__dirname, "..", "wwwroot", "build"),
       filename: "TerriaMap.js",
-      publicPath: "build/",
+      publicPath: "/twin/build/",
       sourcePrefix: "", // to avoid breaking multi-line string literals by inserting extra tabs.
       globalObject: "(self || window)" // to avoid breaking in web worker (https://github.com/webpack/webpack/issues/6642)
     },
@@ -52,6 +52,17 @@ module.exports = function ({ devMode, baseHref = "/" }) {
           include: path.resolve(__dirname, "..", "wwwroot", "images"),
           type: "asset" // inlines as data url if size < 8kb
         },
+        // import loading.gif
+        {
+          test: /loading\.gif$/,
+          include: path.resolve(__dirname, "..", "lib", "Styles"),
+          type: "asset",
+          parser: {
+            dataUrlCondition: {
+              maxSize: 65536 // < inline as data url if size < 64k
+            }
+          }
+        },
         // import globe.gif
         {
           test: /globe\.gif$/,
@@ -62,6 +73,22 @@ module.exports = function ({ devMode, baseHref = "/" }) {
               maxSize: 65536 // < inline as data url if size < 64k
             }
           }
+        },
+        // handle css files
+        {
+          test: /\.css$/,
+          include: [path.resolve(__dirname, "..", "lib")],
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader
+            },
+            {
+              loader: "css-loader",
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
         },
         // handle scss files
         {

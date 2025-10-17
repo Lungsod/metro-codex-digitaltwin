@@ -115,7 +115,7 @@
       "members": [
         {
           "name": "OSM 3D Buildings",
-          "type": "3d-tiles",
+          "type": "3d-tiles-clamped",
           "attribution": "OpenStreetMap",
           "description": "OpenStreetMap 3D Building footprints",
           "ionAssetId": 96188,

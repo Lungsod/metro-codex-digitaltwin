@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oriented Bounding Box Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+      #cesiumContainer {
+        width: 100%;
+        height: 600px;
+        margin: 20px 0;
+        border: 1px solid #ccc;
+      }
+      .controls {
+        margin: 20px 0;
+        padding: 10px;
+        background: #f5f5f5;
+        border-radius: 5px;
+      }
+      button {
+        margin: 5px;
+        padding: 8px 16px;
+        cursor: pointer;
+      }
+      .info {
+        margin: 10px 0;
+        padding: 10px;
+        background: #e7f3ff;
+        border-left: 4px solid #2196f3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Oriented Bounding Box Visualization Test</h1>
+
+    <div class="info">
+      <p>
+        This test page demonstrates the new OrientedBoundingBox drawing
+        functionality.
+      </p>
+      <p>
+        Load a 3D tileset and use the controls to visualize different bounding
+        volumes.
+      </p>
+    </div>
+
+    <div class="controls">
+      <button onclick="loadTestTileset()">Load Test Tileset</button>
+      <button onclick="toggleBoundingBox()">Toggle Bounding Box</button>
+      <button onclick="toggleOrientedBoundingBox()">
+        Toggle Oriented Bounding Box
+      </button>
+      <button onclick="toggleBoundingSphere()">Toggle Bounding Sphere</button>
+      <button onclick="clearAll()">Clear All</button>
+    </div>
+
+    <div id="cesiumContainer"></div>
+
+    <div id="output" class="info" style="display: none">
+      <h3>Debug Output:</h3>
+      <pre id="debugLog"></pre>
+    </div>
+
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.95/Build/Cesium/Cesium.js"></script>
+    <script type="module">
+      import {
+        createClampedTileset,
+        drawBoundingBox,
+        drawOrientedBoundingBox,
+        drawBoundingSphere
+      } from "./lib/terrainClamp.js";
+
+      // Initialize Cesium viewer
+      const viewer = new Cesium.Viewer("cesiumContainer", {
+        terrainProvider: Cesium.createWorldTerrain()
+      });
+
+      let currentTileset = null;
+      let boundingBoxEnabled = false;
+      let obbEnabled = false;
+      let boundingSphereEnabled = false;
+
+      // Override console.log to capture debug output
+      const originalLog = console.log;
+      const originalWarn = console.warn;
+      const originalError = console.error;
+
+      function logToPage(message, ...args) {
+        const output = document.getElementById("output");
+        const debugLog = document.getElementById("debugLog");
+        output.style.display = "block";
+
+        const timestamp = new Date().toLocaleTimeString();
+        const formattedMessage = `[${timestamp}] ${message}`;
+
+        if (args.length > 0) {
+          debugLog.textContent +=
+            formattedMessage + " " + JSON.stringify(args, null, 2) + "\n";
+        } else {
+          debugLog.textContent += formattedMessage + "\n";
+        }
+
+        debugLog.scrollTop = debugLog.scrollHeight;
+      }
+
+      console.log = function (...args) {
+        originalLog.apply(console, args);
+        logToPage(...args);
+      };
+
+      console.warn = function (...args) {
+        originalWarn.apply(console, args);
+        logToPage(...args);
+      };
+
+      console.error = function (...args) {
+        originalError.apply(console, args);
+        logToPage(...args);
+      };
+
+      window.loadTestTileset = async function () {
+        try {
+          // Clear any existing tileset
+          if (currentTileset) {
+            viewer.scene.primitives.remove(currentTileset);
+          }
+
+          // Load a sample tileset - you can replace this URL with your own
+          const tilesetUrl =
+            "https://cesium.com/public/SandCastle/Cesium3DTiles/Tilesets/Tileset/tileset.json";
+
+          logToPage("Loading tileset from:", tilesetUrl);
+
+          currentTileset = await createClampedTileset(tilesetUrl, {
+            scene: viewer.scene,
+            heightOffset: 10,
+            enableClamping: true
+          });
+
+          viewer.scene.primitives.add(currentTileset);
+
+          // Zoom to the tileset
+          viewer.zoomTo(currentTileset);
+
+          logToPage("Tileset loaded successfully");
+        } catch (error) {
+          logToPage("Error loading tileset:", error);
+        }
+      };
+
+      window.toggleBoundingBox = function () {
+        if (!currentTileset) {
+          logToPage("Please load a tileset first");
+          return;
+        }
+
+        boundingBoxEnabled = !boundingBoxEnabled;
+        drawBoundingBox(currentTileset, viewer.scene, boundingBoxEnabled);
+        logToPage(
+          `Bounding box ${boundingBoxEnabled ? "enabled" : "disabled"}`
+        );
+      };
+
+      window.toggleOrientedBoundingBox = function () {
+        if (!currentTileset) {
+          logToPage("Please load a tileset first");
+          return;
+        }
+
+        obbEnabled = !obbEnabled;
+        drawOrientedBoundingBox(
+          currentTileset,
+          viewer.scene,
+          obbEnabled,
+          Cesium.Color.YELLOW
+        );
+        logToPage(
+          `Oriented bounding box ${obbEnabled ? "enabled" : "disabled"}`
+        );
+      };
+
+      window.toggleBoundingSphere = function () {
+        if (!currentTileset) {
+          logToPage("Please load a tileset first");
+          return;
+        }
+
+        boundingSphereEnabled = !boundingSphereEnabled;
+        drawBoundingSphere(
+          currentTileset,
+          viewer.scene,
+          boundingSphereEnabled,
+          Cesium.Color.CYAN
+        );
+        logToPage(
+          `Bounding sphere ${boundingSphereEnabled ? "enabled" : "disabled"}`
+        );
+      };
+
+      window.clearAll = function () {
+        if (currentTileset) {
+          drawBoundingBox(currentTileset, viewer.scene, false);
+          drawOrientedBoundingBox(currentTileset, viewer.scene, false);
+          drawBoundingSphere(currentTileset, viewer.scene, false);
+
+          boundingBoxEnabled = false;
+          obbEnabled = false;
+          boundingSphereEnabled = false;
+
+          logToPage("All visualizations cleared");
+        }
+      };
+
+      logToPage('Test page initialized. Click "Load Test Tileset" to begin.');
+    </script>
+  </body>
+</html>

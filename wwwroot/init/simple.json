@@ -64,6 +64,42 @@
       "isOpen": true,
       "members": [
         {
+          "name": "Tondo",
+          "type": "3d-tiles",
+          "url": "http://3dtileset.lungsod.ph/A3-250128-Tondo3D/tileset.json",
+          "description": "Gaisano building automatically clamped to terrain height. Works correctly in both 3D smooth and 3D terrain modes.",
+          "info": [
+            {
+              "name": "Terrain Clamping",
+              "content": "This tileset uses automatic terrain clamping to ensure it appears on the terrain surface regardless of the terrain mode."
+            },
+            {
+              "name": "Height Offset",
+              "content": "The height offset can be adjusted in the customProperties if the building appears too high or too low."
+            }
+          ]
+        },
+        {
+          "name": "Tondo",
+          "type": "3d-tiles-clamped",
+          "url": "http://3dtileset.lungsod.ph/A3-250128-Tondo3D/tileset.json",
+          "customProperties": {
+            "enableClamping": true,
+            "heightOffset": 0
+          },
+          "description": "Gaisano building automatically clamped to terrain height. Works correctly in both 3D smooth and 3D terrain modes.",
+          "info": [
+            {
+              "name": "Terrain Clamping",
+              "content": "This tileset uses automatic terrain clamping to ensure it appears on the terrain surface regardless of the terrain mode."
+            },
+            {
+              "name": "Height Offset",
+              "content": "The height offset can be adjusted in the customProperties if the building appears too high or too low."
+            }
+          ]
+        },
+        {
           "name": "Gaisano Building (Clamped to Terrain)",
           "type": "3d-tiles-clamped",
           "url": "./gaisano/tileset.json",

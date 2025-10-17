@@ -15,7 +15,7 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import Cesium3DTilesCatalogItem from "terriajs/lib/Models/Catalog/CatalogItems/Cesium3DTilesCatalogItem";
 import CatalogMemberFactory from "terriajs/lib/Models/Catalog/CatalogMemberFactory";
-import { createClampedTileset } from "./lib/terrainClamp.js";
+import { applyTerrainClamping, _testTerrainClamp } from "./lib/terrainClamp.js";
 
 // Helper function to check if user is authenticated
 const isUserAuthenticated = () => {
@@ -243,28 +243,131 @@ registerCatalogMembers();
 try {
   // Create a custom class that extends Cesium3DTilesCatalogItem
   class ClampedCesium3DTilesCatalogItem extends Cesium3DTilesCatalogItem {
-    constructor(info, parent) {
-      super(info, parent);
+    constructor(...args) {
+      // Call the parent constructor first
+      super(...args);
+
+      // Initialize clamping state
+      this._clampingScheduled = false;
     }
 
-    async _load() {
-      await super._load();
+    // Override the mapItems computed property to apply clamping
+    get mapItems() {
+      const mapItems = super.mapItems;
 
-      if (this._tileset && terria.viewer && terria.viewer.scene) {
-        try {
-          // Apply terrain clamping
-          await createClampedTileset(this.url, {
-            scene: terria.viewer.scene,
-            heightOffset: this.customProperties?.heightOffset || 0,
-            enableClamping: this.customProperties?.enableClamping !== false
-          });
-          console.log(
-            `Applied terrain clamping to tileset: ${this.name || "Unknown"}`
-          );
-        } catch (error) {
-          console.warn("Failed to apply terrain clamping:", error);
-        }
+      console.log(this.tileset);
+
+      // Check if tileset exists and clamping is already applied
+      if (!this.tileset || this.tileset._clampingApplied) {
+        return mapItems;
       }
+
+      // Schedule terrain clamping when tileset is ready
+      this._scheduleClamping();
+
+      return mapItems;
+    }
+
+    // Helper method to schedule clamping when all prerequisites are met
+    _scheduleClamping() {
+      // If we already scheduled clamping, don't schedule again
+      if (this._clampingScheduled) {
+        return;
+      }
+      this._clampingScheduled = true;
+
+      // Helper function to apply clamping when both tileset and scene are ready
+      const applyClampingWhenReady = () => {
+        // Check if tileset exists
+        if (!this.tileset) {
+          return false;
+        }
+
+        // Check if we have a valid scene
+        if (!this.terria.cesium || !this.terria.cesium.scene) {
+          return false;
+        }
+
+        // All prerequisites met, apply clamping
+        this.tileset._clampingApplied = true;
+
+        applyTerrainClamping(
+          this.tileset,
+          this.terria.cesium.scene,
+          this.customProperties?.heightOffset || 0
+        )
+          .then(() => {
+            console.log(
+              `Applied terrain clamping to tileset: ${this.name || "Unknown"}`
+            );
+          })
+          .catch((error) => {
+            console.warn("Failed to apply terrain clamping:", error);
+            // Reset the flag so it can be retried
+            this.tileset._clampingApplied = false;
+            // Reset scheduling flag to allow retry
+            this._clampingScheduled = false;
+          });
+
+        return true;
+      };
+
+      // Try immediately first
+      if (applyClampingWhenReady()) {
+        return;
+      }
+
+      // If tileset exists, wait for it to be ready using events
+      if (this.tileset) {
+        // Listen for the ready event or check if already ready
+        const checkAndApply = () => {
+          if (!applyClampingWhenReady()) {
+            // If scene is still not ready, wait for it and try again
+            this._waitForSceneAndApply(applyClampingWhenReady);
+          }
+        };
+
+        // If the tileset has a readyPromise, use it
+        if (this.tileset.readyPromise) {
+          this.tileset.readyPromise.then(checkAndApply).catch((error) => {
+            console.warn("Tileset failed to load:", error);
+            this._clampingScheduled = false;
+          });
+        } else {
+          // Fall back to checking periodically
+          setTimeout(checkAndApply, 100);
+        }
+        return;
+      }
+
+      // If tileset doesn't exist yet, wait for scene and then check periodically for tileset
+      this._waitForSceneAndApply(applyClampingWhenReady);
+    }
+
+    // Helper method to wait for scene and then apply clamping
+    _waitForSceneAndApply(applyClampingWhenReady) {
+      const checkSceneAndApply = () => {
+        // If scene is ready, try applying clamping
+        if (this.terria.cesium && this.terria.cesium.scene) {
+          if (applyClampingWhenReady()) {
+            return;
+          }
+
+          // If scene is ready but tileset is not, wait a bit and try again
+          setTimeout(() => {
+            if (applyClampingWhenReady()) {
+              return;
+            }
+            // If still not ready, schedule another check
+            setTimeout(checkSceneAndApply, 2000);
+          }, 1000);
+        } else {
+          // Scene not ready, wait and try again
+          setTimeout(checkSceneAndApply, 1000);
+        }
+      };
+
+      checkSceneAndApply();
     }
   }
 

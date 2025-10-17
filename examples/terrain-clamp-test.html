@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terrain Clamping Test - Gaisano Building</title>
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.95/Build/Cesium/Cesium.js"></script>
+    <link
+      href="https://cesium.com/downloads/cesiumjs/releases/1.95/Build/Cesium/Widgets/widgets.css"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body,
+      #cesiumContainer {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      .control-panel {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: rgba(42, 42, 42, 0.8);
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: Arial, sans-serif;
+        z-index: 1000;
+        max-width: 300px;
+      }
+      .control-panel h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+      .control-panel label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .control-panel input[type="range"] {
+        width: 100%;
+        margin-bottom: 5px;
+      }
+      .control-panel button {
+        background: #48b;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-right: 5px;
+        margin-bottom: 5px;
+      }
+      .control-panel button:hover {
+        background: #369;
+      }
+      .control-panel button:disabled {
+        background: #666;
+        cursor: not-allowed;
+      }
+      .info-panel {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        background: rgba(42, 42, 42, 0.8);
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        font-family: Arial, sans-serif;
+        z-index: 1000;
+        font-size: 12px;
+      }
+      .loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(42, 42, 42, 0.9);
+        color: white;
+        padding: 20px;
+        border-radius: 5px;
+        font-family: Arial, sans-serif;
+        z-index: 2000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cesiumContainer"></div>
+
+    <div class="control-panel">
+      <h3>Terrain Clamping Controls</h3>
+
+      <label>
+        <input type="checkbox" id="enableTerrain" checked /> Enable Terrain
+      </label>
+
+      <label>
+        <input type="checkbox" id="enableClamping" checked /> Enable Clamping
+      </label>
+
+      <label> Height Offset: <span id="heightValue">0m</span> </label>
+      <input
+        type="range"
+        id="heightSlider"
+        min="-50"
+        max="50"
+        value="0"
+        step="1"
+      />
+
+      <div style="margin-top: 10px">
+        <button id="loadTileset">Load Tileset</button>
+        <button id="removeTileset">Remove Tileset</button>
+        <button id="resetView">Reset View</button>
+      </div>
+
+      <div style="margin-top: 10px">
+        <button id="viewMode3D">3D Mode</button>
+        <button id="viewMode2D">2D Mode</button>
+        <button id="viewModeColumbus">Columbus View</button>
+      </div>
+    </div>
+
+    <div class="info-panel">
+      <div id="info">Ready to load tileset</div>
+    </div>
+
+    <div id="loading" class="loading" style="display: none">
+      Loading tileset...
+    </div>
+
+    <script>
+      // Initialize Cesium viewer
+      const viewer = new Cesium.Viewer("cesiumContainer", {
+        terrainProvider: Cesium.createWorldTerrain(),
+        baseLayerPicker: false,
+        geocoder: false,
+        homeButton: false,
+        sceneModePicker: false,
+        navigationHelpButton: false,
+        animation: false,
+        timeline: false,
+        fullscreenButton: false,
+        vrButton: false
+      });
+
+      let tileset = null;
+      let currentHeightOffset = 0;
+
+      // UI Elements
+      const enableTerrainCheckbox = document.getElementById("enableTerrain");
+      const enableClampingCheckbox = document.getElementById("enableClamping");
+      const heightSlider = document.getElementById("heightSlider");
+      const heightValue = document.getElementById("heightValue");
+      const loadButton = document.getElementById("loadTileset");
+      const removeButton = document.getElementById("removeTileset");
+      const resetViewButton = document.getElementById("resetView");
+      const viewMode3DButton = document.getElementById("viewMode3D");
+      const viewMode2DButton = document.getElementById("viewMode2D");
+      const viewModeColumbusButton =
+        document.getElementById("viewModeColumbus");
+      const infoDiv = document.getElementById("info");
+      const loadingDiv = document.getElementById("loading");
+
+      // Terrain clamping implementation (simplified version for demo)
+      async function applyTerrainClamping(tileset, heightOffset = 0) {
+        const boundingSphere = tileset.boundingSphere;
+        const center = boundingSphere.center;
+
+        // Convert to cartographic coordinates
+        const cartographic = Cesium.Cartographic.fromCartesian(center);
+
+        // Get terrain height at this position
+        const terrainHeight = await getTerrainHeight(cartographic);
+
+        if (terrainHeight !== undefined) {
+          const heightDifference =
+            terrainHeight - cartographic.height + heightOffset;
+
+          // Create translation matrix
+          const translation = new Cesium.Cartesian3(0, 0, heightDifference);
+          const translationMatrix = Cesium.Matrix4.fromTranslation(translation);
+
+          // Apply to tileset model matrix
+          const clampedMatrix = Cesium.Matrix4.multiply(
+            tileset.modelMatrix,
+            translationMatrix,
+            new Cesium.Matrix4()
+          );
+
+          tileset.modelMatrix = clampedMatrix;
+
+          infoDiv.innerHTML = `Clamped to terrain: ${terrainHeight.toFixed(2)}m (adjustment: ${heightDifference.toFixed(2)}m)`;
+        }
+      }
+
+      async function getTerrainHeight(cartographic) {
+        const positions = [cartographic];
+        try {
+          const updatedPositions = await Cesium.sampleTerrain(
+            viewer.terrainProvider,
+            11,
+            positions
+          );
+          return updatedPositions[0].height;
+        } catch (error) {
+          console.warn("Failed to sample terrain:", error);
+          return undefined;
+        }
+      }
+
+      async function loadTileset() {
+        if (tileset) {
+          viewer.scene.primitives.remove(tileset);
+          tileset = null;
+        }
+
+        loadingDiv.style.display = "block";
+        loadButton.disabled = true;
+
+        try {
+          // Load the gaisano tileset
+          tileset = await Cesium.Cesium3DTileset.fromUrl(
+            "./gaisano/tileset.json",
+            {
+              maximumScreenSpaceError: 16,
+              dynamicScreenSpaceError: true
+            }
+          );
+
+          viewer.scene.primitives.add(tileset);
+
+          // Wait for tileset to be ready
+          await tileset.readyPromise;
+
+          // Apply clamping if enabled
+          if (enableClampingCheckbox.checked && enableTerrainCheckbox.checked) {
+            await applyTerrainClamping(tileset, currentHeightOffset);
+          }
+
+          // Zoom to tileset
+          viewer.camera.viewBoundingSphere(tileset.boundingSphere, {
+            offset: new Cesium.HeadingPitchRange(0.0, -0.5, 0.0)
+          });
+
+          infoDiv.innerHTML = "Tileset loaded successfully";
+        } catch (error) {
+          console.error("Failed to load tileset:", error);
+          infoDiv.innerHTML = `Error: ${error.message}`;
+        } finally {
+          loadingDiv.style.display = "none";
+          loadButton.disabled = false;
+        }
+      }
+
+      function removeTileset() {
+        if (tileset) {
+          viewer.scene.primitives.remove(tileset);
+          tileset = null;
+          infoDiv.innerHTML = "Tileset removed";
+        }
+      }
+
+      function resetView() {
+        viewer.camera.flyHome();
+      }
+
+      // Event listeners
+      loadButton.addEventListener("click", loadTileset);
+      removeButton.addEventListener("click", removeTileset);
+      resetViewButton.addEventListener("click", resetView);
+
+      enableTerrainCheckbox.addEventListener("change", async (e) => {
+        if (e.target.checked) {
+          viewer.terrainProvider = Cesium.createWorldTerrain();
+          infoDiv.innerHTML = "Terrain enabled";
+        } else {
+          viewer.terrainProvider = new Cesium.EllipsoidTerrainProvider();
+          infoDiv.innerHTML = "Terrain disabled";
+        }
+
+        // Reload and re-clamp tileset if it exists
+        if (tileset) {
+          await loadTileset();
+        }
+      });
+
+      enableClampingCheckbox.addEventListener("change", async () => {
+        if (tileset) {
+          // Reset tileset model matrix
+          tileset.modelMatrix = Cesium.Matrix4.IDENTITY;
+
+          if (enableClampingCheckbox.checked && enableTerrainCheckbox.checked) {
+            await applyTerrainClamping(tileset, currentHeightOffset);
+          } else {
+            infoDiv.innerHTML = "Clamping disabled";
+          }
+        }
+      });
+
+      heightSlider.addEventListener("input", async (e) => {
+        const newOffset = parseFloat(e.target.value);
+        const adjustment = newOffset - currentHeightOffset;
+
+        if (tileset) {
+          const translation = new Cesium.Cartesian3(0, 0, adjustment);
+          const translationMatrix = Cesium.Matrix4.fromTranslation(translation);
+
+          const currentMatrix = tileset.modelMatrix;
+          const newMatrix = Cesium.Matrix4.multiply(
+            currentMatrix,
+            translationMatrix,
+            new Cesium.Matrix4()
+          );
+
+          tileset.modelMatrix = newMatrix;
+        }
+
+        currentHeightOffset = newOffset;
+        heightValue.textContent = `${newOffset}m`;
+      });
+
+      viewMode3DButton.addEventListener("click", () => {
+        viewer.scene.mode = Cesium.SceneMode.SCENE3D;
+      });
+
+      viewMode2DButton.addEventListener("click", () => {
+        viewer.scene.mode = Cesium.SceneMode.SCENE2D;
+      });
+
+      viewModeColumbusButton.addEventListener("click", () => {
+        viewer.scene.mode = Cesium.SceneMode.COLUMBUS_VIEW;
+      });
+
+      // Initial view - zoom to the gaisano area
+      viewer.camera.setView({
+        destination: Cesium.Cartesian3.fromDegrees(
+          122.545, // Approximate longitude for Iloilo
+          10.697, // Approximate latitude for Iloilo
+          500 // Height in meters
+        )
+      });
+
+      infoDiv.innerHTML = 'Ready. Click "Load Tileset" to begin.';
+    </script>
+  </body>
+</html>

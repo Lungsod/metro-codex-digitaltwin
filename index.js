@@ -13,6 +13,9 @@ import showGlobalDisclaimer from "./lib/Views/showGlobalDisclaimer";
 import plugins from "./plugins";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import Cesium3DTilesCatalogItem from "terriajs/lib/Models/Catalog/CatalogItems/Cesium3DTilesCatalogItem";
+import CatalogMemberFactory from "terriajs/lib/Models/Catalog/CatalogMemberFactory";
+import { createClampedTileset } from "./lib/terrainClamp.js";
 
 // Helper function to check if user is authenticated
 const isUserAuthenticated = () => {
@@ -235,6 +238,49 @@ const viewState = new ViewState({
 // (i.e. to reduce the size of your application if you don't actually use them all), feel free to copy a subset of
 // the code in the registerCatalogMembers function here instead.
 registerCatalogMembers();
+
+// Register the custom 3d-tiles-clamped catalog member with terrain clamping
+try {
+  // Create a custom class that extends Cesium3DTilesCatalogItem
+  class ClampedCesium3DTilesCatalogItem extends Cesium3DTilesCatalogItem {
+    constructor(info, parent) {
+      super(info, parent);
+    }
+
+    async _load() {
+      await super._load();
+
+      if (this._tileset && terria.viewer && terria.viewer.scene) {
+        try {
+          // Apply terrain clamping
+          await createClampedTileset(this.url, {
+            scene: terria.viewer.scene,
+            heightOffset: this.customProperties?.heightOffset || 0,
+            enableClamping: this.customProperties?.enableClamping !== false
+          });
+          console.log(
+            `Applied terrain clamping to tileset: ${this.name || "Unknown"}`
+          );
+        } catch (error) {
+          console.warn("Failed to apply terrain clamping:", error);
+        }
+      }
+    }
+  }
+
+  // Register the custom catalog member type
+  CatalogMemberFactory.register(
+    "3d-tiles-clamped",
+    ClampedCesium3DTilesCatalogItem
+  );
+
+  console.log("Registered 3d-tiles-clamped catalog member type");
+} catch (error) {
+  console.warn(
+    "Failed to register 3d-tiles-clamped catalog member type:",
+    error
+  );
+}
 
 // Register custom search providers in the core TerriaJS. If you only want to register a subset of them, or to add your own,
 // insert your custom version of the code in the registerSearchProviders function here instead.

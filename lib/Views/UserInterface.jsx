@@ -14,6 +14,8 @@ import {
 } from "@smartmetro/codex-auth";
 import Cookies from "js-cookie";
 
+import { createClampedTileset } from "../terrainClamp.js";
+
 export const TerriaUserInterfaceInner = ({
   terria,
   viewState,

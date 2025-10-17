@@ -59,6 +59,57 @@
   },
   "catalog": [
     {
+      "name": "Buildings with Terrain Clamping",
+      "type": "group",
+      "isOpen": true,
+      "members": [
+        {
+          "name": "Gaisano Building (Clamped to Terrain)",
+          "type": "3d-tiles-clamped",
+          "url": "./gaisano/tileset.json",
+          "customProperties": {
+            "enableClamping": true,
+            "heightOffset": 0
+          },
+          "description": "Gaisano building automatically clamped to terrain height. Works correctly in both 3D smooth and 3D terrain modes.",
+          "info": [
+            {
+              "name": "Terrain Clamping",
+              "content": "This tileset uses automatic terrain clamping to ensure it appears on the terrain surface regardless of the terrain mode."
+            },
+            {
+              "name": "Height Offset",
+              "content": "The height offset can be adjusted in the customProperties if the building appears too high or too low."
+            }
+          ]
+        },
+        {
+          "name": "Gaisano Building (Slightly Above Ground)",
+          "type": "3d-tiles-clamped",
+          "url": "./gaisano/tileset.json",
+          "customProperties": {
+            "enableClamping": true,
+            "heightOffset": 2
+          },
+          "description": "Gaisano building clamped to terrain with a 2-meter offset above ground.",
+          "isVisible": false
+        },
+        {
+          "name": "Gaisano Building (Original - No Clamping)",
+          "type": "3d-tiles",
+          "url": "./gaisano/tileset.json",
+          "description": "Original gaisano tileset without terrain clamping. May appear under terrain in 3D terrain mode.",
+          "isVisible": false,
+          "info": [
+            {
+              "name": "Note",
+              "content": "This version does not use terrain clamping and may appear under the terrain when 3D terrain mode is enabled."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "3D Models",
       "type": "group",
       "members": [
@@ -74,6 +125,10 @@
           "style": {
             "show": "true",
             "color": "color('#ffffff')"
+          },
+          "customProperties": {
+            "enableClamping": true,
+            "heightOffset": 2
           },
           "colorBlendMode": "REPLACE",
           "modelDimensions": [

@@ -13,6 +13,7 @@ import {
   Logo
 } from "@smartmetro/codex-auth";
 import { useZoomOverride } from "./overrides/ZoomOverride";
+import LineMeasureModal from "./Measure/LineMeasureModal";
 
 export const TerriaUserInterfaceInner = ({
   terria,
@@ -60,6 +61,19 @@ export const TerriaUserInterfaceInner = ({
   const aboutButtonHrefUrl =
     viewState.terria.configParameters.aboutButtonHrefUrl;
 
+  // ------------------------------
+  // Line Measure (Shadow UI)
+  // ------------------------------
+  const currentTool = viewState.currentTool;
+
+  const isLineMeasuring = currentTool?.toolName === "measure-distance";
+
+  const distanceMeters = currentTool?.totalDistance ?? 0;
+
+  console.log("[Measure] Current Tool:", currentTool);
+
+  console.log("[UI] Is Line Measuring:", isLineMeasuring);
+
   return (
     <div
       style={{
@@ -84,6 +98,13 @@ export const TerriaUserInterfaceInner = ({
           flexDirection: "column"
         }}
       >
+        <LineMeasureModal
+          distance={123.45}
+          units="m"
+          onDone={() => console.log("Done")}
+          onPrint={() => console.log("Print")}
+        />
+
         <StandardUserInterface
           terria={terria}
           viewState={viewState}

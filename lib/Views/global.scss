@@ -105,6 +105,106 @@ body {
     }
   }
 
+  /* ================================
+   Terria Measure Tool Overrides
+   ================================ */
+
+  /* Hide default Terria Measure panel
+   (shadowed by custom LineMeasureModal) */
+  [class*="MeasurePanel"] {
+    display: none !important;
+  }
+
+  .codex-dt-measure-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 3000;
+  }
+
+  .codex-dt-measure-modal {
+    pointer-events: auto;
+    background: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 12px;
+    padding: 16px 20px;
+    width: 180px;
+    max-width: calc(100vw - 32px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  /* Reset default margins */
+  .codex-dt-measure-modal h2,
+  .codex-dt-measure-modal p {
+    margin: 0;
+  }
+
+  /* Title */
+  .codex-dt-measure-title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 0.6;
+  }
+
+  /* Instruction text */
+  .codex-dt-measure-hint {
+    font-size: 12px;
+    color: #666666;
+  }
+
+  /* Distance row */
+  .codex-dt-measure-distance {
+    margin-top: 4px;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    font-size: 15px;
+  }
+
+  .codex-dt-measure-distance .label {
+    color: #000000;
+  }
+
+  .codex-dt-measure-distance .value {
+    font-weight: 600;
+  }
+
+  /* Actions */
+  .codex-dt-measure-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+  }
+
+  /* Buttons */
+  .codex-dt-btn {
+    min-width: 48px;
+    padding: 5px 9px;
+    font-size: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .codex-dt-btn-primary {
+    background: #4b457c;
+    color: #ffffff;
+    border: none;
+  }
+
+  .codex-dt-btn-secondary {
+    background: #ffffff;
+    color: #4b457c;
+    border: 2px solid #4b457c;
+  }
+
   // To customise the look of your Terria Map, uncomment this section and make changes to your heart's content
   // You will also want to uncomment and change values in lib/Styles/variables.scss
   /*

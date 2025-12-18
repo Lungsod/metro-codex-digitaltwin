@@ -12,7 +12,7 @@ import {
   useAuth,
   Logo
 } from "@smartmetro/codex-auth";
-import Cookies from "js-cookie";
+import { useZoomOverride } from "./overrides/ZoomOverride";
 
 export const TerriaUserInterfaceInner = ({
   terria,
@@ -40,6 +40,9 @@ export const TerriaUserInterfaceInner = ({
     }
     prevAuthRef.current = isAuthenticated;
   }, [isAuthenticated]);
+
+  // Add zoom override to disable Ctrl key behavior during zoom
+  useZoomOverride(terria);
 
   const navLinks = [
     { label: "Digital Twin", href: "/twin", active: true },

@@ -1,176 +1,130 @@
 {
-  "workbench": ["barangays", "3d-buildings"],
+  "initialCamera": {
+    "west": 122.2,
+    "south": 10.2,
+    "east": 122.9,
+    "north": 11.1
+  },
+  "homeCamera": {
+    "west": 122.414947509,
+    "south": 10.32845,
+    "east": 122.74382,
+    "north": 10.944399834
+  },
+  "viewerMode": "3d",
+  "baseMaps": {
+    "enabledBaseMaps": ["esri-world-imagery", "osm", "Carto", "world-topo-map"],
+    "items": [
+      {
+        "item": {
+          "id": "Carto",
+          "name": "Carto with labels",
+          "type": "open-street-map",
+          "url": "https://basemaps.cartocdn.com/rastertiles/voyager_labels_under/",
+          "attribution": "© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>, © <a href='https://carto.com/about-carto/'>CARTO</a>"
+        },
+        "image": "images/basemaps/carto.png"
+      },
+      {
+        "item": {
+          "id": "osm",
+          "name": "OSM",
+          "type": "open-street-map",
+          "url": "https://tile.openstreetmap.org"
+        },
+        "image": "images/basemaps/osm.png"
+      },
+      {
+        "item": {
+          "id": "esri-world-imagery",
+          "name": "World Imagery",
+          "type": "esri-mapServer",
+          "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+          "maximumScale": 1000
+        },
+        "image": "images/basemaps/topo.png"
+      },
+      {
+        "item": {
+          "id": "world-topo-map",
+          "name": "World Topographic Map",
+          "type": "esri-mapServer",
+          "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"
+        },
+        "image": "images/basemaps/world-topo-map2.png"
+      }
+    ],
+    "defaultBaseMapId": "basemap-openstreetmap",
+    "previewBaseMapId": "basemap-openstreetmap"
+  },
   "catalog": [
     {
-      "name": "Boundaries",
-      "type": "group",
-      "isOpen": true,
-      "members": [
-        {
-          "id": "barangays",
-          "name": "Barangays",
-          "type": "geojson",
-          "url": "https://codex.migedc.lungsod.ph/api/geodata/boundaries/?format=json&results=true&admin_type=Barangay",
-          "description": "All barangay boundaries",
-          "activeStyle": "population"
-        },
-        {
-          "name": "Iloilo City Districts",
-          "type": "geojson",
-          "url": "https://codex.migedc.lungsod.ph/api/geodata/boundaries/?format=json&results=true&admin_type=District",
-          "description": "Iloilo City district boundaries",
-          "activeStyle": "population"
-        },
-        {
-          "name": "Municipalities / Cities",
-          "type": "geojson",
-          "url": "https://codex.migedc.lungsod.ph/api/geodata/boundaries/?format=json&results=true&admin_type=Municipality,City",
-          "description": "Municipality and city boundaries",
-          "activeStyle": "population"
-        },
-        {
-          "name": "Province",
-          "type": "geojson",
-          "url": "https://codex.migedc.lungsod.ph/api/geodata/boundaries/?format=json&results=true&admin_type=Province",
-          "description": "Provincial boundaries",
-          "activeStyle": "population"
-        }
-      ]
-    },
-    {
-      "name": "Points of Interest",
+      "name": "3D Models",
       "type": "group",
       "members": [
         {
-          "name": "Health",
-          "type": "geojson",
-          "url": "https://codex.migedc.lungsod.ph/api/geodata/pois/?format=json&results=true&category=Health",
-          "description": "Health facilities and services"
-        },
-        {
-          "name": "Economy",
-          "type": "geojson",
-          "url": "https://codex.migedc.lungsod.ph/api/geodata/pois/?format=json&results=true&category=Economy",
-          "description": "Economic facilities and businesses"
-        },
-        {
-          "name": "Tourism",
-          "type": "geojson",
-          "url": "https://codex.migedc.lungsod.ph/api/geodata/pois/?format=json&results=true&category=Tourism",
-          "description": "Tourism destinations and attractions"
-        },
-        {
-          "name": "Critical Facility",
-          "type": "geojson",
-          "url": "https://codex.migedc.lungsod.ph/api/geodata/pois/?format=json&results=true&category=Critical Facility",
-          "description": "Critical facilities"
-        },
-        {
-          "name": "Transportation",
-          "type": "geojson",
-          "url": "https://codex.migedc.lungsod.ph/api/geodata/pois/?format=json&results=true&category=Transportation",
-          "description": "Transportation infrastructure and services"
-        }
-      ]
-    },
-    {
-      "name": "Vector Datasets (By Office)",
-      "type": "group",
-      "members": [
-        {
-          "id": "office-migedc-sample-office",
-          "name": "MIGEDC Sample Office",
-          "type": "group",
-          "members": [
+          "name": "OSM 3D Buildings",
+          "type": "3d-tiles",
+          "attribution": "OpenStreetMap",
+          "description": "OpenStreetMap 3D Building footprints",
+          "ionAssetId": 96188,
+          "ionAccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4MThkYzE1NC03ZmI3LTQwYmItYjI2YS00MzhlMDkzZjFhOTYiLCJpZCI6NjQzMTcsImlhdCI6MTYyOTEwMDgzMH0.Cb4eZ8RftYTwllMhTJrWg1VX6-FGKjJzLBhlIMRKyew",
+          "ionServer": "https://api.cesium.com",
+          "id": "3d-buildings",
+          "style": {
+            "show": "true",
+            "color": "color('#ffffff')"
+          },
+          "colorBlendMode": "REPLACE",
+          "modelDimensions": [
             {
-              "name": "Road Networks",
-              "type": "geojson",
-              "url": "https://codex.migedc.lungsod.ph/api/files/vector2d/18/download/",
-              "description": "Geographic data",
-              "info": [
+              "id": "type",
+              "name": "Color by",
+              "selectedId": "type",
+              "options": [
                 {
-                  "name": "Details",
-                  "content": "**Office:** MIGEDC Sample Office<br>**Feature Count:** 0<br>**Visibility:** Public<br>**Uploaded:** 2025-10-29"
-                }
-              ]
-            },
-            {
-              "name": "MIGEDC - Landslide Susceptibility",
-              "type": "geojson",
-              "url": "https://codex.migedc.lungsod.ph/api/files/vector2d/3/download/",
-              "description": "Geographic data",
-              "info": [
+                  "id": "type",
+                  "name": "No color",
+                  "value": {
+                    "style": {
+                      "show": "true",
+                      "color": "color('#ffffff')"
+                    }
+                  }
+                },
                 {
-                  "name": "Details",
-                  "content": "**Office:** MIGEDC Sample Office<br>**Feature Count:** 0<br>**Visibility:** Public<br>**Uploaded:** 2025-10-16"
-                }
-              ]
-            },
-            {
-              "name": "MIGEDC - Flood Susceptibility",
-              "type": "geojson",
-              "url": "https://codex.migedc.lungsod.ph/api/files/vector2d/2/download/",
-              "description": "Geographic data",
-              "info": [
-                {
-                  "name": "Details",
-                  "content": "**Office:** MIGEDC Sample Office<br>**Feature Count:** 0<br>**Visibility:** Public<br>**Uploaded:** 2025-10-16"
-                }
-              ]
-            },
-            {
-              "name": "MIGEDC - Tsunami Hazard",
-              "type": "geojson",
-              "url": "https://codex.migedc.lungsod.ph/api/files/vector2d/1/download/",
-              "description": "Geographic data",
-              "info": [
-                {
-                  "name": "Details",
-                  "content": "**Office:** MIGEDC Sample Office<br>**Feature Count:** 0<br>**Visibility:** Public<br>**Uploaded:** 2025-10-16"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "office-pavia-sample-office",
-          "name": "Pavia Sample Office",
-          "type": "group",
-          "members": [
-            {
-              "name": "Flood",
-              "type": "geojson",
-              "url": "https://codex.migedc.lungsod.ph/api/files/vector2d/15/download/",
-              "description": "Geographic data",
-              "info": [
-                {
-                  "name": "Details",
-                  "content": "**Office:** Pavia Sample Office<br>**Feature Count:** 0<br>**Visibility:** Public<br>**Uploaded:** 2025-10-24"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Raster Datasets (By Office)",
-      "type": "group",
-      "members": [
-        {
-          "id": "raster-office-pavia-sample-office",
-          "name": "Pavia Sample Office",
-          "type": "group",
-          "members": [
-            {
-              "name": "pavia",
-              "type": "cog",
-              "url": "https://codex.migedc.lungsod.ph/api/files/raster2d/16/download/",
-              "description": "Raster imagery data",
-              "info": [
-                {
-                  "name": "Details",
-                  "content": "**Office:** Pavia Sample Office<br>**Format:** COG<br>**Raster Size:** 2013 x 1991<br>**Pixel Size:** 4.5479306485e-06 x 4.5479306485e-06<br>**Coordinate System:** N/A<br>**Visibility:** Public<br>**Uploaded:** 2025-10-24"
+                  "id": "height",
+                  "name": "Building Height",
+                  "value": {
+                    "style": {
+                      "show": "true",
+                      "color": {
+                        "conditions": [
+                          [
+                            "${height} !== undefined && 0 < Number(${height}) && Number(${height}) <= 4.23",
+                            "color('#d7191c')"
+                          ],
+                          [
+                            "${height} !== undefined && 4.23 < Number(${height}) && Number(${height}) <= 6.45",
+                            "color('#fdae61')"
+                          ],
+                          [
+                            "${height} !== undefined && 6.45 < Number(${height}) && Number(${height}) <= 9.43",
+                            "color('#ffffbf')"
+                          ],
+                          [
+                            "${height} !== undefined && 9.43 < Number(${height}) && Number(${height}) <= 22.82",
+                            "color('#abdda4')"
+                          ],
+                          [
+                            "${height} !== undefined && 22.82 < Number(${height})",
+                            "color('#2b83ba')"
+                          ],
+                          ["true", "color('#E8F1F2')"]
+                        ]
+                      }
+                    }
+                  }
                 }
               ]
             }

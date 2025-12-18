@@ -9,7 +9,7 @@ COPY --chown=node:node . /app
 
 WORKDIR /app
 
-COPY --chown=node:node package.json yarn.lock ./
+COPY --chown=node:node package.json package-lock.json ./
 RUN npm install
 COPY --chown=node:node . /app
 

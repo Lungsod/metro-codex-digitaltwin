@@ -10,7 +10,7 @@ COPY --chown=node:node . /app
 WORKDIR /app
 
 COPY --chown=node:node package.json package-lock.json ./
-RUN npm install
+RUN npm install --legacy-peer-deps
 COPY --chown=node:node . /app
 
 RUN yarn gulp release --baseHref="/twin/"

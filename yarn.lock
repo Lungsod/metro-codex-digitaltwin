@@ -8381,9 +8381,9 @@ terriajs-typings-for-css-modules-loader@^2.5.2:
   optionalDependencies:
     prettier "*"
 
-"terriajs@https://github.com/Lungsod/metro-terriajs.git#feat/workbench":
+"terriajs@https://github.com/Lungsod/metro-terriajs.git#c89647ebb0":
   version "8.11.1"
-  resolved "https://github.com/Lungsod/metro-terriajs.git#43e825e13da12b4aff6fc82c8aca30b6642253bf"
+  resolved "https://github.com/Lungsod/metro-terriajs.git#c89647ebb08a1657f9de6f235096197648c2f268"
   dependencies:
     "@babel/core" "^7.28.0"
     "@babel/plugin-proposal-decorators" "^7.28.0"

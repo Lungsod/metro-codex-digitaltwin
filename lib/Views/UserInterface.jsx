@@ -46,7 +46,9 @@ export const TerriaUserInterfaceInner = ({
 
   const navLinks = [
     { label: "Digital Twin", href: "/twin", active: true },
-    { label: "Insights", href: "/insights" }
+    { label: "Insights", href: "/insights" },
+    { label: "Floodex", href: "/floodex" },
+    { label: "GeoAI", href: "/ai" }
   ];
 
   // Only show Manager for authenticated users
